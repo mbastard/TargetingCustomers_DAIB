@@ -6,7 +6,8 @@ A company recently introduced a variety of discount offers to members. Customers
 of money over a defined period of time. In return, the customer received a discount voucher. The company wants to
 know which members responded best to this marketing campaign by spending more money.
 
-##Data
+## Data
+
 The data for this project is available on Moodle under the group work project description folder. The data comprises
 of three separate file described below.
 
@@ -22,25 +23,25 @@ a news letter (informational).
 
 
 transactions.json contains information specific transaction across the promotion period.
-• person is the customer membership identification.
-• event is the event - either offer received, offer viewed, offer complete or transaction.
-• value.offer.id is the promotion identification.
-• value.amount is the amount spent in GBP for a given transaction.
-• value.offer_id is the promotion identification.
-• value.reward is the monetary value of the promotion.
-• time time from the beginning of the promotion period.
+* person is the customer membership identification.
+* event is the event - either offer received, offer viewed, offer complete or transaction.
+* value.offer.id is the promotion identification.
+* value.amount is the amount spent in GBP for a given transaction.
+* value.offer_id is the promotion identification.
+* value.reward is the monetary value of the promotion.
+* time time from the beginning of the promotion period.
 
 
 profile.json contains information about customers.
-• gender is the identified gender of the customer.
-• age is the age of the customer at the time of the promotion period.
-• id is the customer membership identification.
-• became_member is the date when the customer became a member.
-• income is the self reported income of the customer at the time of the promotion period.
+* gender is the identified gender of the customer.
+* age is the age of the customer at the time of the promotion period.
+* id is the customer membership identification.
+* became_member is the date when the customer became a member.
+* income is the self reported income of the customer at the time of the promotion period.
 
-##Learning objectives
+## Learning objectives
 
-##Question of interest
+## Question of interest
 1. Identify clusters of customer that completed more transactions and/or spent more money over the promotional
 period.
 2. Provide an interpretation of clusters with visual representations of each cluster.
