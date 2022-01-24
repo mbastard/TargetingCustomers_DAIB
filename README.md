@@ -12,13 +12,13 @@ of three separate file described below.
 
 
 portfolio.json contains information about the ten promotions.
-• reward is the monetary value of the promotion.
-• channels is the ways in which the promotion was advertised.
-• diffculty is the amount the customer needs to spend in order to receive the reward.
-• duration is the total number of days that the promotion was available.
-• offer_type is the type of promotion. This is either a money off offer (discount), buy one get one free (BOGO) or
+* reward is the monetary value of the promotion.
+* channels is the ways in which the promotion was advertised.
+* diffculty is the amount the customer needs to spend in order to receive the reward.
+* duration is the total number of days that the promotion was available.
+* offer_type is the type of promotion. This is either a money off offer (discount), buy one get one free (BOGO) or
 a news letter (informational).
-• id is the promotion identitifcation.
+* id is the promotion identitifcation.
 
 
 transactions.json contains information specific transaction across the promotion period.
