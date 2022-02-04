@@ -6,6 +6,10 @@ A company recently introduced a variety of discount offers to members. Customers
 of money over a defined period of time. In return, the customer received a discount voucher. The company wants to
 know which members responded best to this marketing campaign by spending more money.
 
+## Environment
+
+The "Readme_environment.md" file explains how you should set up your environment.
+
 ## Data
 
 The data for this project is available on Moodle under the group work project description folder. The data comprises
