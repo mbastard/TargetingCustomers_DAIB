@@ -10,6 +10,13 @@ know which members responded best to this marketing campaign by spending more mo
 
 The "Readme_environment.md" file explains how you should set up your environment.
 
+## Structure of the Repository
+
+Folders:
+* "data" contains the raw json files
+* "eda" contains notebooks for the Exploratory Data Analysis phase
+* "utils" contains diverse libraries (e.g. utils_main for reading and preprocessing the json files)
+
 ## Data
 
 The data for this project is available on Moodle under the group work project description folder. The data comprises
