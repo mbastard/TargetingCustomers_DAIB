@@ -1,0 +1,10 @@
+numpy
+pandas
+sklearn
+pandas_profiling
+matplotlib
+seaborn
+ipywidgets
+jupyterlab-widgets
+notebook
+widgetsnbextension
