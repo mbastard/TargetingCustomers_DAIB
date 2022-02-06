@@ -37,9 +37,9 @@ a news letter (informational).
 transactions.json contains information specific transaction across the promotion period.
 * person is the customer membership identification.
 * event is the event - either offer received, offer viewed, offer complete or transaction.
-* value.offer.id is the promotion identification.
+* value.offer.id is the promotion identification. 
 * value.amount is the amount spent in GBP for a given transaction.
-* value.offer_id is the promotion identification.
+* value.offer_id is the promotion identification. (link to portfolio.json)
 * value.reward is the monetary value of the promotion.
 * time time from the beginning of the promotion period.
 
@@ -47,7 +47,7 @@ transactions.json contains information specific transaction across the promotion
 profile.json contains information about customers.
 * gender is the identified gender of the customer.
 * age is the age of the customer at the time of the promotion period.
-* id is the customer membership identification.
+* id is the customer membership identification. (link to transactions.json)
 * became_member is the date when the customer became a member.
 * income is the self reported income of the customer at the time of the promotion period.
 
