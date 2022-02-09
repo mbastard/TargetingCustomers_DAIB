@@ -78,3 +78,78 @@ def contains(channels, testedChannel="email"):
         r = 1
     return r
     
+# Function deriving a set of informative variables that we can use to cluster customers
+# The derived variables will start with "prep_" for preprocessing
+# The derived variables are stored in the profile_prep data frame
+def preprocessing(portfolio, profile, transcript, merge_how="outer"):
+    
+    #### TOTAL AVERAGE SPEND PER CUSTOMER ####
+    #### prep_tot_aver_spend ####
+    
+    trans_mean = transcript.query('event == "transaction"') # Filter on transactions events
+    trans_mean = trans_mean.groupby('id_membership').mean() # groupby id_membership and apply mean
+    trans_mean = trans_mean.reset_index(level=[0]) # reset index
+    trans_mean.rename(columns = {'amount':'prep_tot_aver_spend'}, inplace = True) # rename "amount" column to "prep_tot_aver_spend" column
+    trans_mean = trans_mean[["id_membership", "prep_tot_aver_spend"]] # only keep the prep_tot_aver_spend and id_membership columns before merging
+    
+    profile_prep = pd.merge(trans_mean, profile, on="id_membership", how=merge_how) # Merge trans_mean and profile and strore the result in profile_prep
+    
+    #### TOTAL SPEND PER CUSTOMER ####
+    #### prep_tot_spend ####
+    
+    trans_sum = transcript.query('event == "transaction"') # Filter on transactions events
+    trans_sum = trans_sum.groupby('id_membership').sum() # groupby id_membership and apply sum
+    trans_sum = trans_sum.reset_index(level=[0]) # reset index
+    trans_sum.rename(columns = {'amount':'prep_tot_spend'}, inplace = True) # rename "amount" column to "prep_tot_spend" column
+    trans_sum = trans_sum[["id_membership", "prep_tot_spend"]] # only keep the prep_tot_spend and id_membership columns before merging
+    
+    profile_prep = pd.merge(trans_sum, profile_prep, on="id_membership", how=merge_how) # Merge trans_sum and profile_prep and strore the result in profile_prep
+    
+    
+    #### TOTAL NUMBER OF COMPLETED OFFER OVER THE SET PROMOTION PERIOD ####
+    #### prep_nb_of_offer_comp ####
+    
+    trans_count = transcript.groupby(['id_membership', 'event']).count()
+    trans_count_ind = trans_count.reset_index(level=[0,1]) # reset index
+    trans_count_filt = trans_count_ind[trans_count_ind["event"] == "offer completed"] # Filter on "offer completed" only
+    trans_count_filt.rename(columns = {'time':'prep_nb_of_offer_comp'}, inplace = True) # rename "time" column to "prep_nb_of_offer_comp" column
+    trans_count_filt = trans_count_filt[["id_membership", "prep_nb_of_offer_comp"]] # only keep the prep_nb_of_offer_comp and id_membership columns before merging
+    
+    profile_prep = pd.merge(trans_count_filt, profile_prep, on="id_membership", how=merge_how) # Merge trans_count_filt and profile_prep and strore the result in profile_prep
+    
+    
+    #### NUMBER OF TRANSACTIONS OVER THE SET PROMOTION PERIOD ####
+    #### prep_nb_of_transactions ####
+    
+    trans_count = transcript.query('event == "transaction"') # Filter on transactions events
+    trans_count = trans_count.groupby('id_membership').count() # groupby id_membership and apply count
+    trans_count = trans_count.reset_index(level=[0]) # reset index
+    trans_count.rename(columns = {'time':'prep_nb_of_transactions'}, inplace = True) # rename "time" column to "prep_nb_of_transactions" column
+    trans_count = trans_count[["id_membership", "prep_nb_of_transactions"]] # only keep the prep_nb_of_transactions and id_membership columns before merging
+    
+    profile_prep = pd.merge(trans_count, profile_prep, on="id_membership", how=merge_how) # Merge trans_count and profile_prep and strore the result in profile_prep
+    
+    #### NUMBER OF OFFER RECEIVED OVER THE SET PROMOTION PERIOD ####
+    #### prep_nb_of_offer_rec ####
+    
+    trans_count = transcript.query('event == "offer received"') # Filter on offer received events
+    trans_count = trans_count.groupby('id_membership').count() # groupby id_membership and apply count
+    trans_count = trans_count.reset_index(level=[0]) # reset index
+    trans_count.rename(columns = {'time':'prep_nb_of_offer_rec'}, inplace = True) # rename "time" column to "prep_nb_of_offer_rec" column
+    trans_count = trans_count[["id_membership", "prep_nb_of_offer_rec"]] # only keep the prep_nb_of_offer_rec and id_membership columns before merging
+    
+    profile_prep = pd.merge(trans_count, profile_prep, on="id_membership", how=merge_how) # Merge trans_count and profile_prep and strore the result in profile_prep
+    
+    
+    #### NUMBER OF OFFER VIEWED OVER THE SET PROMOTION PERIOD ####
+    #### prep_nb_of_offer_view ####
+    
+    trans_count = transcript.query('event == "offer viewed"') # Filter on offer viewed events
+    trans_count = trans_count.groupby('id_membership').count() # groupby id_membership and apply count
+    trans_count = trans_count.reset_index(level=[0]) # reset index
+    trans_count.rename(columns = {'time':'prep_nb_of_offer_view'}, inplace = True) # rename "time" column to "prep_nb_of_offer_view" column
+    trans_count = trans_count[["id_membership", "prep_nb_of_offer_view"]] # only keep the prep_nb_of_offer_view and id_membership columns before merging
+    
+    profile_prep = pd.merge(trans_count, profile_prep, on="id_membership", how=merge_how) # Merge trans_count and profile_prep and strore the result in profile_prep
+    
+    return profile_prep
