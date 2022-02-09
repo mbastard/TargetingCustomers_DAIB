@@ -45,7 +45,7 @@ a news letter (**informational**).
 * **value.offer.id** is the promotion identification -> renamed as **id_promotion** after reading the file -> key link to portfolio.json file
 * **value.amount** is the amount spent in GBP for a given transaction -> renamed as **amount** after reading the file.
 * **value.reward** is the monetary value of the promotion -> renamed as **reward** after reading the file.
-* **time** time from the beginning of the promotion period.
+* **time** is the time from the beginning of the promotion period.
 
 
 profile.json contains information about customers.
