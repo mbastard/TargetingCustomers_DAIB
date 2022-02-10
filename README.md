@@ -18,6 +18,9 @@ Folders:
 * "eda" contains notebooks for the Exploratory Data Analysis phase
 * "utils" contains diverse libraries (e.g. utils_main for reading and preprocessing the json files)
 
+Files:
+* "notes.md" contains all the findings that we will be discussed during our weekly meetings
+
 ## Data
 
 The data for this project is available on Moodle under the group work project description folder. The data comprises
