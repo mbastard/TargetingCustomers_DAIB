@@ -19,7 +19,7 @@ Folders:
 * "utils" contains diverse libraries (e.g. utils_main for reading and preprocessing the json files)
 
 Files:
-* "notes.md" contains all the findings that will be discussed during our weekly meetings
+* "notes.md" contains all the goals (i.e. tasks) that have been set for the next meeting. This file contains also the findings that will be discussed during our weekly meetings.
 
 ## Data
 
