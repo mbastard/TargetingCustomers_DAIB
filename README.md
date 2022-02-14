@@ -45,7 +45,7 @@ a news letter (**informational**).
 * **value.offer.id** is the promotion identification -> renamed as **id_promotion** after reading the file -> key link to portfolio.json file
 * **value.amount** is the amount spent in GBP for a given transaction -> renamed as **amount** after reading the file.
 * **value.reward** is the monetary value of the promotion -> renamed as **reward** after reading the file.
-* **time** time from the beginning of the promotion period.
+* **time** time from the beginning of the promotion period (unit=day). time=0 would be the start of the promotional period and time=1 would be synonymous to day 1.
 
 
 profile.json contains information about customers.
@@ -81,3 +81,9 @@ These informative variables are derived while calling the preprocessing() fucnti
 * prep_nb_of_transactions : NUMBER OF TRANSACTIONS OVER THE SET PROMOTION PERIOD
 * prep_nb_of_offer_rec : NUMBER OF OFFER RECEIVED OVER THE SET PROMOTION PERIOD
 * prep_nb_of_offer_view : NUMBER OF OFFER VIEWED OVER THE SET PROMOTION PERIOD 
+
+## Important links
+
+* [Moodle - Forum - Anonymous discussion (e.g. time)](https://moodle.gla.ac.uk/mod/hsuforum/view.php?f=2383)
+
+* [Moodle - Group work](https://moodle.gla.ac.uk/course/view.php?id=29456#section-2)
