@@ -5,7 +5,7 @@ import pandas as pd
 
 
 # Function reading the json raw files and doing some proprocessing
-# Returns the prrporcessed portfolio, profile, and transcript data frames
+# Returns the preprocessed portfolio, profile, and transcript data frames
 def readFiles(dropUnnecessaryCol = False):
     # Read Files
     portfolio = pd.read_json('./../data/portfolio.json', lines=True)
