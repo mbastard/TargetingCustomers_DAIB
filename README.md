@@ -80,10 +80,10 @@ These informative variables are derived while calling the preprocessing() fucnti
 
 * prep_tot_aver_spend : TOTAL AVERAGE SPEND PER CUSTOMER
 * prep_tot_spend : TOTAL SPEND PER CUSTOMER
-* prep_nb_of_offer_comp : TOTAL NUMBER OF COMPLETED OFFER OVER THE SET PROMOTION PERIOD
-* prep_nb_of_transactions : NUMBER OF TRANSACTIONS OVER THE SET PROMOTION PERIOD
 * prep_nb_of_offer_rec : NUMBER OF OFFER RECEIVED OVER THE SET PROMOTION PERIOD
 * prep_nb_of_offer_view : NUMBER OF OFFER VIEWED OVER THE SET PROMOTION PERIOD 
+* prep_nb_of_offer_comp : TOTAL NUMBER OF COMPLETED OFFER OVER THE SET PROMOTION PERIOD
+* prep_nb_of_transactions : NUMBER OF TRANSACTIONS OVER THE SET PROMOTION PERIOD
 
 ## Important links
 
@@ -92,3 +92,5 @@ These informative variables are derived while calling the preprocessing() fucnti
 * [Moodle - Group work](https://moodle.gla.ac.uk/course/view.php?id=29456#section-2)
 
 * [Youtube - Group description - Colette](https://www.youtube.com/watch?v=VVqsqOqfltU)
+
+* [Medium - Starbucks offers](https://seifip.medium.com/starbucks-offers-advanced-customer-segmentation-with-python-737f22e245a4)
