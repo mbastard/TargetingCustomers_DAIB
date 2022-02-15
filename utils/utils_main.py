@@ -30,7 +30,8 @@ def readFiles(dropUnnecessaryCol = False):
     
     # transcript data frame
     # Extract values from the "value" dictionnary column into id_promotion, amount, and reward columns
-    transcript["id_promotion"] = transcript["value"].apply(dict2Offerid)
+    transcript["id_promotion_rec"] = transcript["value"].apply(dict2Offerid) # promotion id for the offers received
+    transcript["id_promotion_comp"] = transcript["value"].apply(dict2Offer_id) # promotion id for the offers completed
     transcript["amount"] = transcript["value"].apply(dict2Amount)
     transcript["reward"] = transcript["value"].apply(dict2Reward)
     
@@ -41,12 +42,22 @@ def readFiles(dropUnnecessaryCol = False):
     
     return portfolio, profile, transcript
 
-# Function extracting the "offer id" key in the "value" dictionnary columns
+# Function extracting the "offer id" key for the "offer received" in the "value" dictionnary columns
 # Returns the offer id or "" (i.e. empty string) if the key is not found
 def dict2Offerid(dic):
     d = ""
     try:
         d = dic["offer id"]
+    except:
+        d = ""
+    return d
+
+# Function extracting the "offer_id" key for the "offer completed" in the "value" dictionnary columns
+# Returns the offer id or "" (i.e. empty string) if the key is not found
+def dict2Offer_id(dic):
+    d = ""
+    try:
+        d = dic["offer_id"]
     except:
         d = ""
     return d
