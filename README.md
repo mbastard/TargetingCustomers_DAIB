@@ -90,3 +90,5 @@ These informative variables are derived while calling the preprocessing() fucnti
 * [Moodle - Forum - Anonymous discussion (e.g. time)](https://moodle.gla.ac.uk/mod/hsuforum/view.php?f=2383)
 
 * [Moodle - Group work](https://moodle.gla.ac.uk/course/view.php?id=29456#section-2)
+
+* [Youtube - Group description - Colette](https://www.youtube.com/watch?v=VVqsqOqfltU)
