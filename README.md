@@ -43,10 +43,10 @@ a news letter (**informational**).
 
 **transactions.json** contains information specific transaction across the promotion period.
 * **person** is the customer membership identification -> renamed as **id_membership** after reading the file -> key link to profile.json file
-* **became_member** is the date when the customer became a member.
 * **event** is the event - either **offer received, offer viewed, offer complete** or **transaction**.
-* **value.offer.id** is the promotion identification -> renamed as **id_promotion** after reading the file -> key link to portfolio.json file
+* **value.offer.id** is the promotion identification for received offers -> renamed as **id_promotion_rec** after reading the file -> key link to portfolio.json file
 * **value.amount** is the amount spent in GBP for a given transaction -> renamed as **amount** after reading the file.
+* **value.offer_id** is the promotion identification for completed offers -> renamed **id_promotion_comp** after reading the file -> key link to portfolio.json file
 * **value.reward** is the monetary value of the promotion -> renamed as **reward** after reading the file.
 * **time** time from the beginning of the promotion period (unit=day). time=0 would be the start of the promotional period and time=1 would be synonymous to day 1.
 
