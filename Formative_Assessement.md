@@ -24,5 +24,5 @@ After the total revenue per customer has been determined, it is possible to calc
 Another potential variable is the duration a customer has been a member. \
 Finally, the number of transactions a customer initiated or number of  promotions a customer responded to could be an additional variable. By plotting two of these variables on a Cartesian plane, it is possible to segment them.
 
-## Clustering methodology
+## Clustering Methodology
 Two types of clustering were considered in this project: principal component analysis (PCA) and K-Means clustering. K-means analysis allows groups to appear in the scatterplot while PCA would enable the researchers to determine if a specific customer fits to a offer. 
