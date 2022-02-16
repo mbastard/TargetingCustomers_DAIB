@@ -13,6 +13,8 @@ The customers are listed in the profile data set and the transactions are listed
 ## Data Exploration
 A total of 17,000 customers are identified in this project. Because the assignment is to subdivide the customers into distinct groups, the main goal is to have as much information about each customer as possible. By using the customer ID as a unique key, it is possible to link each customer to their transactions in the transaction data set and determine the total revenue generated from each customer.\
 An immediate anomaly is that 2,175 individuals are listed as having an age of 118. These individuals do not have additional information available about them such as income or gender. It seems unlikely that this many 118 year old’s are customers and suggest that this is default value if age data is not given.  However, transactions are recorded so that it seems that these individuals are real people where the complete data about them is not known. Customers with an age of 118 do spend less and are a statistically distinct group. TO DO: T_TEST.\
+![image](https://user-images.githubusercontent.com/47631827/154353983-05037655-25e8-483d-a400-cdba98cfe026.png)
+\
 Of the total 17,000, 422 have no recorded transactions, 4226 customers never responded to an offer, 6 did not receive any offers and 166 did not view any offer. 
 
 ## Data Cleaning
