@@ -12,7 +12,7 @@ portfolio = pd.read_json(path+'portfolio.json', lines=True)
 profile = pd.read_json(path+'profile.json', lines=True)
 transcript = pd.read_json(path+'transcript.json', lines=True)
 
-test=profile.head(20)
+test=portfolio.head(20)
 test["id"][1]
 
 
