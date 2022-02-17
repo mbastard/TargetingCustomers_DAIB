@@ -24,7 +24,7 @@ Files:
 ## Data
 
 The data for this project is available on Moodle under the group work project description folder. The data comprises
-of three separate file described below.
+of three separate file described below. There is also an additional video explaining the data that can be found [here](https://www.youtube.com/watch?v=VVqsqOqfltU).
 
 
 **portfolio.json** contains information about the ten promotions.
