@@ -245,5 +245,6 @@ def getOffers(transcript, profile):
     
     return offers
 
+# Function to create an easy histogram
 def easy_histogram(dataframe,column):
     dataframe[column].plot.hist(bins=25, alpha=0.5)
