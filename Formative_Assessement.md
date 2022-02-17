@@ -1,6 +1,6 @@
 # Formative Assessment
 Febuary 21, 2022\
-by Gabriel Bernardo, Micheal Bastard and Felix von Wendorff
+by Gabriel Berardi, Micheal Bastard and Felix von Wendorff
 
 ## Introduction
 A cornerstone of every successful business is identifying potential customers, informing them of your service or product and hoping they become a customer. This process is called marketing. However, customers are complex and not all people are potential customers. The solution is targeted marketing; segmenting the population into distinct groups and approaching the ones most interested in the service. The emergence of internet advertainment has allowed for companies to target potential customers with greater precision than ever before. Data is now collected on advertisement conversion ratios allowing companies to know exactly how successful a marketing campaign was.\
