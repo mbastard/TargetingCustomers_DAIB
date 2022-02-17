@@ -18,6 +18,9 @@ Folders:
 * "eda" contains notebooks for the Exploratory Data Analysis phase
 * "utils" contains diverse libraries (e.g. utils_main for reading and preprocessing the json files)
 
+Files:
+* "notes.md" contains all the goals (i.e. tasks) that have been set for the next meeting. This file contains also the findings that will be discussed during our weekly meetings.
+
 ## Data
 
 The data for this project is available on Moodle under the group work project description folder. The data comprises
@@ -40,12 +43,12 @@ a news letter (**informational**).
 
 **transactions.json** contains information specific transaction across the promotion period.
 * **person** is the customer membership identification -> renamed as **id_membership** after reading the file -> key link to profile.json file
-* **became_member** is the date when the customer became a member.
 * **event** is the event - either **offer received, offer viewed, offer complete** or **transaction**.
-* **value.offer.id** is the promotion identification -> renamed as **id_promotion** after reading the file -> key link to portfolio.json file
+* **value.offer.id** is the promotion identification for received offers -> renamed as **id_promotion_rec** after reading the file -> key link to portfolio.json file
 * **value.amount** is the amount spent in GBP for a given transaction -> renamed as **amount** after reading the file.
+* **value.offer_id** is the promotion identification for completed offers -> renamed **id_promotion_comp** after reading the file -> key link to portfolio.json file
 * **value.reward** is the monetary value of the promotion -> renamed as **reward** after reading the file.
-* **time** is the time from the beginning of the promotion period.
+* **time** time from the beginning of the promotion period (unit=day). time=0 would be the start of the promotional period and time=1 would be synonymous to day 1.
 
 
 profile.json contains information about customers.
@@ -77,7 +80,17 @@ These informative variables are derived while calling the preprocessing() fucnti
 
 * prep_tot_aver_spend : TOTAL AVERAGE SPEND PER CUSTOMER
 * prep_tot_spend : TOTAL SPEND PER CUSTOMER
-* prep_nb_of_offer_comp : TOTAL NUMBER OF COMPLETED OFFER OVER THE SET PROMOTION PERIOD
-* prep_nb_of_transactions : NUMBER OF TRANSACTIONS OVER THE SET PROMOTION PERIOD
 * prep_nb_of_offer_rec : NUMBER OF OFFER RECEIVED OVER THE SET PROMOTION PERIOD
 * prep_nb_of_offer_view : NUMBER OF OFFER VIEWED OVER THE SET PROMOTION PERIOD 
+* prep_nb_of_offer_comp : TOTAL NUMBER OF COMPLETED OFFER OVER THE SET PROMOTION PERIOD
+* prep_nb_of_transactions : NUMBER OF TRANSACTIONS OVER THE SET PROMOTION PERIOD
+
+## Important links
+
+* [Moodle - Forum - Anonymous discussion (e.g. time)](https://moodle.gla.ac.uk/mod/hsuforum/view.php?f=2383)
+
+* [Moodle - Group work](https://moodle.gla.ac.uk/course/view.php?id=29456#section-2)
+
+* [Youtube - Group description - Colette](https://www.youtube.com/watch?v=VVqsqOqfltU)
+
+* [Medium - Starbucks offers](https://seifip.medium.com/starbucks-offers-advanced-customer-segmentation-with-python-737f22e245a4)

@@ -2,7 +2,7 @@
 
 import numpy as np
 import pandas as pd
-
+from lifetimes.utils import summary_data_from_transaction_data
 
 # Function reading the json raw files and doing some proprocessing
 # Returns the preprocessed portfolio, profile, and transcript data frames
@@ -17,36 +17,89 @@ def readFiles(dropUnnecessaryCol = False):
     profile.rename(columns = {'id':'id_membership'}, inplace = True)
     transcript.rename(columns = {'person':'id_membership'}, inplace = True)
     
-    # portfolio data frame
-    # split channels column of lists into multiple binary columns (i.e. email, mobile, social, and web)
-    portfolio["email"] = portfolio["channels"].apply(contains, testedChannel="email")
-    portfolio["mobile"] = portfolio["channels"].apply(contains, testedChannel="mobile")
-    portfolio["social"] = portfolio["channels"].apply(contains, testedChannel="social")
-    portfolio["web"] = portfolio["channels"].apply(contains, testedChannel="web")
-    
-    # profile data frame
+    #### PROFILE DATA FRAME ####
     # Change format of "became_member_on" attribute from int to datetime64[ns]
-    profile['became_member_on'] = pd.to_datetime(profile['became_member_on'].astype(str), format='%Y%m%d')
+    profile['became_member_on'] = pd.to_datetime(profile['became_member_on'], format='%Y%m%d')
+    # fill empty genders to "NA" string
+    profile['gender'] = profile['gender'].fillna('NA')
     
-    # transcript data frame
+    #### TRANSCRIPT DATA FRAME ####
     # Extract values from the "value" dictionnary column into id_promotion, amount, and reward columns
-    transcript["id_promotion"] = transcript["value"].apply(dict2Offerid)
+    transcript["id_promotion_rec"] = transcript["value"].apply(dict2Offerid) # promotion id for the offers received
+    transcript["id_promotion_comp"] = transcript["value"].apply(dict2Offer_id) # promotion id for the offers completed
     transcript["amount"] = transcript["value"].apply(dict2Amount)
     transcript["reward"] = transcript["value"].apply(dict2Reward)
     
     # Drop Unncessary columns (i.e. extracted/split columns)
     if dropUnnecessaryCol == True:
-        portfolio = portfolio.drop("channels",1)
         transcript = transcript.drop("value", 1)    
     
     return portfolio, profile, transcript
 
-# Function extracting the "offer id" key in the "value" dictionnary columns
+# Function encoding categorical variables into binary variables
+def oneHotEncoder(portfolio, profile, transcript, dropUnnecessaryCol=False):
+    
+    #### PORTFOLIO DATAFRAME ####
+    
+    # split channels column of lists into multiple binary columns (i.e. email, mobile, social, and web)
+    portfolio["email"] = portfolio["channels"].apply(contains, testedChannel="email")
+    portfolio["mobile"] = portfolio["channels"].apply(contains, testedChannel="mobile")
+    portfolio["social"] = portfolio["channels"].apply(contains, testedChannel="social")
+    portfolio["web"] = portfolio["channels"].apply(contains, testedChannel="web")
+    # One-hot encoding of the offer_type column into discount, BOGO, and informational binary columns
+    offer_type_dummies = portfolio['offer_type'].str.get_dummies()
+    portfolio = pd.concat([portfolio,offer_type_dummies], axis=1)
+    
+    #### PROFILE DATAFRAME ####
+    
+    # gender type dummies
+    profile['year_joined'] = profile['became_member_on'].apply(lambda x: str(x.year))
+
+    gender_dummies = profile['gender'].str.get_dummies().add_prefix('gender_')
+    year_joined_dummies = profile['year_joined'].str.get_dummies().add_prefix('year_joined_')
+
+    profile = pd.concat([profile, gender_dummies, year_joined_dummies], axis=1)
+    
+    #### TRANSCRIPT DATAFRAME ####
+    
+    # event dummies
+    event_dummies = transcript['event'].str.get_dummies()
+    event_dummies.drop('transaction', axis=1, inplace=True)
+
+    transcript = pd.concat([transcript, event_dummies], axis=1)
+    transcript.rename(columns={'offer completed': 'offer_completed', 'offer received': 'offer_received', 'offer viewed': 'offer_viewed'}, inplace=True)
+
+      
+    # Drop Unncessary columns (i.e. extracted/split columns)
+    if dropUnnecessaryCol == True:
+        portfolio.drop("channels", axis=1, inplace=True)
+        portfolio.drop("offer_type", axis=1, inplace=True)
+        
+        profile.drop(['gender'], axis=1, inplace=True)
+        profile.drop(['became_member_on'], axis=1, inplace=True)
+        profile.drop(['year_joined'], axis=1, inplace=True)
+        
+        #transcript.drop(['event'], axis=1, inplace=True)
+        
+    
+    return portfolio, profile, transcript
+
+# Function extracting the "offer id" key for the "offer received" in the "value" dictionnary columns
 # Returns the offer id or "" (i.e. empty string) if the key is not found
 def dict2Offerid(dic):
     d = ""
     try:
         d = dic["offer id"]
+    except:
+        d = ""
+    return d
+
+# Function extracting the "offer_id" key for the "offer completed" in the "value" dictionnary columns
+# Returns the offer id or "" (i.e. empty string) if the key is not found
+def dict2Offer_id(dic):
+    d = ""
+    try:
+        d = dic["offer_id"]
     except:
         d = ""
     return d
@@ -153,3 +206,44 @@ def preprocessing(portfolio, profile, transcript, merge_how="outer"):
     profile_prep = pd.merge(trans_count, profile_prep, on="id_membership", how=merge_how) # Merge trans_count and profile_prep and strore the result in profile_prep
     
     return profile_prep
+
+# Function extracting and processing the transaction events from the transcript dataframe
+def getTransactions(transcript, profile):
+    transactions = transcript.query('event == "transaction"').copy()
+    ##transactions['amount'] = transactions['value'].apply(lambda x: list(x.values())[0])
+    #transactions.drop(['value', 'offer_completed', 'offer_received', 'offer_viewed'], axis=1, inplace=True)
+    
+    transactions = transactions.merge(profile, on="id_membership")
+    #transactions.drop(['event'], axis=1, inplace=True)
+    
+    #### RECENCY AND FREQUENCY ####
+    
+    # time to Datetime
+    # time is supposed to be in hours
+    transactions['datetime'] = transactions['time'].apply(lambda x: pd.Timestamp('2000-01-01T12') + pd.Timedelta(hours=x))
+
+    rf = summary_data_from_transaction_data(transactions, 'id_membership', 'datetime', monetary_value_col='amount')
+    rf = rf.reset_index(level=[0])
+    #rf.drop('T', axis=1, inplace=True) # Drop T column :  This is equal to the duration between a customer’s first purchase and the end of the period under study
+
+    #customers = profile.join(rf)
+    customers = test = pd.merge(profile, rf, on="id_membership", how="outer")    
+    
+    return transactions, customers
+
+# Function extracting and processing the NON-transaction events from the transcript dataframe
+def getOffers(transcript, profile):
+    offers = transcript.query('event != "transaction"').copy()
+    #offers['offer_id'] = offers['value'].apply(lambda x: list(x.values())[0])
+    #offers.drop(['value'], axis=1, inplace=True)
+    
+    offers = pd.merge(offers, profile, on='id_membership', how="outer")
+    #offers = pd.merge(offers, portfolio, on='id_promotion', how="outer")
+    #offers.drop(['id_x', 'id_y'], axis=1, inplace=True)
+    #offers.set_index('offer_id', inplace=True)
+    #offers.head(2)
+    
+    return offers
+
+def easy_histogram(dataframe,column):
+    dataframe[column].plot.hist(bins=25, alpha=0.5)

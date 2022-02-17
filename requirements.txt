@@ -8,3 +8,6 @@ ipywidgets
 jupyterlab-widgets
 notebook
 widgetsnbextension
+lifetimes
+yellowbrick
+plotly
