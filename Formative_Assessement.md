@@ -30,8 +30,8 @@ In the profile dataset, we identified the following outliers:
 
 **Age**
 The only outlier seems to be the age of 118. However, this corresponds to people which reported no gender and could therefore be a systematic error. When looking at the age per gender, there seems to be outliers for female customers where the age is 101.
-![image](./plots/profile_age_boxplot.png)
 
+<img src="./plots/profile_age_boxplot.png" alt="drawing" width="200"/>
 
 
 ## Variables of Interest
