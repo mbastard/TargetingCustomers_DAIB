@@ -29,9 +29,21 @@ The portfolio dataset merely lists the ten different promotions and hence does n
 In the profile dataset, we identified the following outliers:
 
 **Age**
-The only outlier seems to be the age of 118. However, this corresponds to people which reported no gender and could therefore be a systematic error. When looking at the age per gender, there seems to be outliers for female customers where the age is 101.
+The only outlier seems to be the age of 118. However, this corresponds to people which reported no gender and could therefore be a systematic error. When looking at the age per gender, there seems to be outliers for female customers where the age is 101:
 
-<img src="./plots/profile_age_boxplot.png" alt="drawing" width="400"/>
+<img src="./plots/profile_age_boxplot.png" alt="drawing" width="600"/>
+
+**Income**
+When aggregated, there seems to be no outlier in terms of the income of the customers. However, when splitting the customers up by gender, there seem to be some outliers for male customers:
+
+<img src="./plots/profile_income_boxplot.png" alt="drawing" width="600"/>
+
+**Became Member On**
+TBD
+
+### Transcript
+**Amount**
+TBD
 
 
 ## Variables of Interest
