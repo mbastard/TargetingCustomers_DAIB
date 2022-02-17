@@ -19,7 +19,20 @@ Of the total 17,000, 422 have no recorded transactions, 4226 customers never res
 
 ## Data Cleaning
 
-## Outlier Detection 
+## Outlier Detection
+Successfully detecting outliers is a crucial step in any clustering project. For the purpose of this project, we defined outliers as datapoints lying outside the upper (Q3 + (1.5 * IQR)) and lower fence (Q1 – (1.5 * IQR)). Looking at the three datasets, we detected the following outliers:
+
+### Portfolio
+The portfolio dataset merely lists the ten different promotions and hence does not contain any outlier.
+
+### Profile
+In the profile dataset, we identified the following outliers:
+
+**Age**
+The only outlier seems to be the age of 118. However, this corresponds to people which reported no gender and could therefore be a systematic error. When looking at the age per gender, there seems to be outliers for female customers where the age is 101.
+![image](./plots/profile_age_boxplot.png)
+
+
 
 ## Variables of Interest
 After the total revenue per customer has been determined, it is possible to calculate the average revenue per year. This is important because it allows a long-term customer and a new customer to be compared in a fair manner.\
