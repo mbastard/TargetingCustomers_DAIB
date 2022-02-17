@@ -27,12 +27,16 @@ def readFiles(dropUnnecessaryCol = False):
     # Extract values from the "value" dictionnary column into id_promotion, amount, and reward columns
     transcript["id_promotion_rec"] = transcript["value"].apply(dict2Offerid) # promotion id for the offers received
     transcript["id_promotion_comp"] = transcript["value"].apply(dict2Offer_id) # promotion id for the offers completed
+    transcript["id_promotion"] = transcript["id_promotion_rec"] + transcript["id_promotion_comp"] # Combine promotion id for the offers received and completed
     transcript["amount"] = transcript["value"].apply(dict2Amount)
-    transcript["reward"] = transcript["value"].apply(dict2Reward)
+    transcript["reward_trans"] = transcript["value"].apply(dict2Reward)
+    
+    transcript.drop("id_promotion_rec", axis=1, inplace=True)
+    transcript.drop("id_promotion_comp", axis=1, inplace=True)
     
     # Drop Unncessary columns (i.e. extracted/split columns)
     if dropUnnecessaryCol == True:
-        transcript = transcript.drop("value", 1)    
+        transcript.drop("value", axis=1, inplace=True)
     
     return portfolio, profile, transcript
 
@@ -220,6 +224,7 @@ def getTransactions(transcript, profile):
     
     # time to Datetime
     # time is supposed to be in hours
+    # Starting time is '2000-01-01' at 12
     transactions['datetime'] = transactions['time'].apply(lambda x: pd.Timestamp('2000-01-01T12') + pd.Timedelta(hours=x))
 
     rf = summary_data_from_transaction_data(transactions, 'id_membership', 'datetime', monetary_value_col='amount')
@@ -232,14 +237,14 @@ def getTransactions(transcript, profile):
     return transactions, customers
 
 # Function extracting and processing the NON-transaction events from the transcript dataframe
-def getOffers(transcript, profile):
+def getOffers(portfolio, profile, transcript):
     offers = transcript.query('event != "transaction"').copy()
     #offers['offer_id'] = offers['value'].apply(lambda x: list(x.values())[0])
     #offers.drop(['value'], axis=1, inplace=True)
     
     offers = pd.merge(offers, profile, on='id_membership', how="outer")
-    #offers = pd.merge(offers, portfolio, on='id_promotion', how="outer")
-    #offers.drop(['id_x', 'id_y'], axis=1, inplace=True)
+    offers = pd.merge(offers, portfolio, on='id_promotion', how="outer")
+    offers.drop(['reward_trans'], axis=1, inplace=True)
     #offers.set_index('offer_id', inplace=True)
     #offers.head(2)
     
