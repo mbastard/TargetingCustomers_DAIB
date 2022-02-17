@@ -248,3 +248,10 @@ def getOffers(transcript, profile):
 # Function to create an easy histogram
 def easy_histogram(dataframe,column):
     dataframe[column].plot.hist(bins=25, alpha=0.5)
+
+# Function to extract the transactions that are not informational
+def non_informational_transactions(transcript_df):
+    non_informational_transactions = transcript_df.query('id_promotion_rec not in ["3f207df678b143eea3cee63160fa8bed",\
+                 "5a8bc65990b245e5a138643cd4eb9837"]')
+    return non_informational_transactions
+    
