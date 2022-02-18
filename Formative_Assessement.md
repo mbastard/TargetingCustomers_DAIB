@@ -21,7 +21,7 @@ Of the total 17,000, 422 have no recorded transactions, 4226 customers never res
 Successfully detecting outliers is a crucial step in any clustering project. For the purpose of this project, we defined outliers as datapoints lying outside the upper (Q3 + (1.5 * IQR)) and lower fence (Q1 – (1.5 * IQR)). Looking at the three datasets, we detected the following outliers:
 
 ### Portfolio
-The portfolio dataset merely lists the ten different promotions and hence does not contain any outlier.
+The portfolio dataset merely lists the ten different promotions and hence does not contain any outliers or missing values.
 
 ### Profile
 In the profile dataset, we identified the following outliers:
