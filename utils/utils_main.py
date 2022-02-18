@@ -2,6 +2,7 @@
 
 import numpy as np
 import pandas as pd
+import random
 from lifetimes.utils import summary_data_from_transaction_data
 
 # Function reading the json raw files and doing some proprocessing
@@ -39,6 +40,67 @@ def readFiles(dropUnnecessaryCol = False):
         transcript.drop("value", axis=1, inplace=True)
     
     return portfolio, profile, transcript
+
+
+# Function to remove or impute missing values for the income column in the profile dataframe
+def missingValuesProfileIncome(profile, how = 'remove'):
+
+    # Remove all rows where the income is NaN
+    if how == 'remove':
+        profile = profile[profile['income'].notna()]
+
+    # Replace the NaN values with the mean of the income
+    elif how == 'impute':
+        mean_income = profile['income'].mean()
+        profile['income'] = profile['income'].fillna(mean_income)
+
+    else:
+        print("Please specify how = 'remove' or 'impute'!")
+
+    return profile
+
+# Function to remove or impute missing values for the gender column in the profile dataframe
+def missingValuesProfileGender(profile, how = 'remove'):
+
+    # Remove all rows where the income is "NA"
+    if how == 'remove':
+        profile = profile.query('gender != "NA"')
+
+    # Replace the "NA" values with draws from "M", "F" and "O"
+    elif how == 'impute':
+        # Get the distribution of "M", "F" and "O"
+        male_percentage = profile.query('gender != "NA"')['gender'].value_counts(normalize = True)["M"]
+        female_percentage = profile.query('gender != "NA"')['gender'].value_counts(normalize = True)["F"]
+        other_percentage = profile.query('gender != "NA"')['gender'].value_counts(normalize = True)["O"]
+
+        # Replace "NA" values with a weighted random draw from ["M", "F", "O"]
+        profile['gender'] = [random.choices(population = ['M', 'F', 'O'],
+                                            weights = [male_percentage, female_percentage, other_percentage],
+                                            k = 1)[0] if i == 'NA' else i for i in profile['gender'].to_list()]
+
+    else:
+        print("Please specify how = 'remove' or 'impute'!")
+        
+    return profile
+
+# Function to remove or impute missing values for the age column in the profile dataframe
+def missingValuesProfileAge(profile, how = 'remove'):
+
+    # Remove all rows where the income is "118"
+    if how == 'remove':
+        profile = profile.query('age != 118')
+
+    # Replace the "118" values with the mean of the age
+    elif how == 'impute':
+        mean_age = profile['age'].mean()
+        profile['age'].replace(118, np.nan)
+        profile['age'] = profile['age'].fillna(mean_age)
+
+    else:
+        print("Please specify how = 'remove' or 'impute'!")
+
+    return profile
+
 
 # Function encoding categorical variables into binary variables
 def oneHotEncoder(portfolio, profile, transcript, dropUnnecessaryCol=False):
@@ -254,8 +316,3 @@ def getOffers(portfolio, profile, transcript):
 def easy_histogram(dataframe,column):
     dataframe[column].plot.hist(bins=25, alpha=0.5)
 
-# Function to extract the transactions that are not informational
-def non_informational_transactions(transcript_df):
-    non_informational_transactions = transcript_df.query('reward>0')
-    return non_informational_transactions
-    
