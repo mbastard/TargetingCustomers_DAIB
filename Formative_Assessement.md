@@ -7,8 +7,8 @@ A cornerstone of every successful business is identifying potential customers, i
 The goal of this project is to segment a population of customers into categories based on what promotion they respond best to and identify the ideal promotion for each customer.  This project will attempt to cluster the customers into 11 groups, one for each promotion and one group for customer who do not respond to promotions. This is because a company should only market to those individuals where it believes it makes sense to promote to.
 
 ## Data
-Three files are provided as data input: Portfolio, profile and transcript. Portfolio is a list of ten promotions that can be used to target the customers.  
-The customers are listed in the profile data set and the transactions are listed in the transaction data set.
+Three files are provided as data input: `portfolio`, `profile` and `transcript`. `portfolio` is a list of ten promotions that can be used to target the customers.  
+The customers are listed in the `profile` data set and the `transactions` are listed in the `transcript` data set.
 
 ## Data Exploration
 A total of 17,000 customers are identified in this project. Because the assignment is to subdivide the customers into distinct groups, the main goal is to have as much information about each customer as possible. By using the customer ID as a unique key, it is possible to link each customer to their transactions in the transaction data set and determine the total revenue generated from each customer.\
@@ -49,7 +49,7 @@ However, the `transcript` dataset contains many transactions where the amount is
 
 <img src="./plots/transcript_amount_histogram.png" alt="drawing" width="600"/>
 
-We assume that all transactions are legitimate and from the structure of the data (e.g. "buy one get one" campaign type), we assume that the data stems from a retail food and beverage company and that high amount transactions could stem from large group orders or catering activities.
+From the structure of the data (e.g. "buy one get one" campaign type), we assume that the data stems from a retail food and beverage company and that high amount transactions could stem from large group orders or catering activities. Therefore, we will treat the `transcript` dataset as legitimate.
 
 ## Variables of Interest
 After the total revenue per customer has been determined, it is possible to calculate the average revenue per year. This is important because it allows a long-term customer and a new customer to be compared in a fair manner.\
