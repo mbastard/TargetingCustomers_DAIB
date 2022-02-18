@@ -17,9 +17,7 @@ An immediate anomaly is that 2,175 individuals are listed as having an age of 11
 \
 Of the total 17,000, 422 have no recorded transactions, 4226 customers never responded to an offer, 6 did not receive any offers and 166 did not view any offer. 
 
-## Data Cleaning
-
-## Outlier Detection / Missing Values
+## Data Cleaning - Outlier Detection and Missing Values
 Successfully detecting outliers is a crucial step in any clustering project. For the purpose of this project, we defined outliers as datapoints lying outside the upper (Q3 + (1.5 * IQR)) and lower fence (Q1 – (1.5 * IQR)). Looking at the three datasets, we detected the following outliers:
 
 ### Portfolio
