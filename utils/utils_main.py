@@ -93,7 +93,7 @@ def missingValuesProfileAge(profile, how = 'remove'):
     # Replace the "118" values with the mean of the age
     elif how == 'impute':
         mean_age = profile['age'].mean()
-        profile['age'].replace(118, np.nan)
+        profile['age'] = profile['age'].replace(118, np.nan)
         profile['age'] = profile['age'].fillna(mean_age)
 
     else:
