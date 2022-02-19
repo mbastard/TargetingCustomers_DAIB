@@ -1,10 +1,14 @@
 # Formative Assessment
 Febuary 21, 2022\
-by Gabriel Berardi, Micheal Bastard and Felix von Wendorff
+by Gabriel Berardi, Mickael Bastard and Felix von Wendorff
 
 ## Introduction
 A cornerstone of every successful business is identifying potential customers, informing them of your service or product and hoping they become a customer. This process is called marketing. However, customers are complex and not all people are potential customers. The solution is targeted marketing; segmenting the population into distinct groups and approaching the ones most interested in the service. The emergence of internet advertainment has allowed for companies to target potential customers with greater precision than ever before. Data is now collected on advertisement conversion ratios allowing companies to know exactly how successful a marketing campaign was.\
-The goal of this project is to segment a population of customers into categories based on what promotion they respond best to and identify the ideal promotion for each customer.  This project will attempt to cluster the customers into 11 groups, one for each promotion and one group for customers who do not respond to promotions. This is because a company should only market to those individuals where it believes it makes sense to promote to.
+The goal of this project is to segment a population of customers into categories based on what promotion they respond best to and identify the ideal promotion for each customer.  This project will attempt to cluster the customers into 11 groups, one for each promotion and one group for customers who do not respond to promotions.
+
+*An alternative to this approach would be to cluster customers into 3 groups, one for each offer type, if no significant patterns emerged from the former analysis given that 11 groups might be too many for the studied data sample (Mickael)*.
+
+This is because a company should only market to those individuals where it believes it makes sense to promote to.
 
 ## Data
 Three files are provided as data input: `portfolio`, `profile` and `transcript`. `portfolio` is a list of ten promotions that can be used to target the customers.  
@@ -55,6 +59,12 @@ From the structure of the data (e.g. "buy one get one" campaign type), we assume
 After the total revenue per customer has been determined, it is possible to calculate the average revenue per year. This is important because it allows a long-term customer and a new customer to be compared in a fair manner.\
 Another potential variable is the duration a customer has been a member. \
 Finally, the number of transactions a customer initiated or the number of  promotions a customer responded to could be an additional variable. By plotting two of these variables on a Cartesian plane, it is possible to segment them.
+
+*(Mickael) Here are other potential variables that might be important to consider:*
+* *The total average spend per customer to know how much the clients spend on average over the promotional period. Instead of considering the entire promotional period, we could also derive the average spend per year.*
+* *The frequency (i.e. same as the number of transaction - 1) represents the average of times the customers have returned over the promotional period. For this case study, we may also use periods of weeks or months if the promotional period appears to be too long.*
+* *The recency represents the duration between a customer's first purchase and their latest purchase. This variable might help separating inactive customers who made a purchase a long time ago (i.e. high recency) to active customer with low recency. Once the two groups have been identified, the company can either decide to re-engage with dormant customers or to focus its attention on active customers in order to retain them.*
+
 
 ## Clustering Methodology
 Two types of clustering were considered in this project: principal component analysis (PCA) and K-Means clustering. K-means analysis allows groups to appear in the scatterplot while PCA would enable the researchers to determine if a specific customer fits to an offer. 
