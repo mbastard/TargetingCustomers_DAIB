@@ -49,9 +49,13 @@ In the transcript dataset we identified that the `amount` column is a highly rig
 
 <img src="./plots/transcript_amount_boxplot.png" alt="drawing" width="600"/>
 
-However, the `transcript` dataset contains many transactions where the amount is equal to zero, in cases where an offer is completed. When we ignore these entries and zoom in on this, the distribution looks like this:
+However, the `transcript` dataset contains many transactions where the amount is equal to zero, in cases where an offer is received, viewed or completed. When we ignore these entries (i.e. only consider the trancation's event) and zoom in on this, the distribution looks like this:
 
 <img src="./plots/transcript_amount_histogram.png" alt="drawing" width="600"/>
+
+The figure above shows a bimodal distribution with one first peak around 1.15\\$ and another peak around 14.5\\$. One interpretation is that we have two groups of customers:
+* one first group which is more likely to spend 1.15\\$ on average
+* another group which is more likely to spend 14.5\\$ on average
 
 From the structure of the data (e.g. "buy one get one" campaign type), we assume that the data stems from a retail food and beverage company and that high amount transactions could stem from large group orders or catering activities. Therefore, we will treat the `transcript` dataset as legitimate.
 
