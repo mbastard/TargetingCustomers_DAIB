@@ -59,6 +59,13 @@ The figure above shows a bimodal distribution with one first peak around 1.15\\$
 
 From the structure of the data (e.g. "buy one get one" campaign type), we assume that the data stems from a retail food and beverage company and that high amount transactions could stem from large group orders or catering activities. Therefore, we will treat the `transcript` dataset as legitimate.
 
+While sending an offer to a client, we might except that the customer successively receives, viewes, and completes the offer. However, it might be that some clients do not view and/or do not complete the offer. By filtering out the transaction's events (i.e. keeping only the received, viewed, and completed offers) and merging the trancript dataset with the portfolio dataset, we can group by event and offer type. Then, we can count the received, viewed, and completed offers for each offer type (i.e. discount, BOGO, and informational) over all events.
+
+<img src="./plots/offer_conversion_by_type.png" alt="drawing" width="800"/>
+
+Looking at the plot above, we notice that more clients view a BOGO offer than a Discount offer after receiving it. However, there are more clients completing the Discount offer than the BOGO offer which might sound a bit counter-intuitive.
+By definition, the informational offer type can only be received and viewed. Therefore, it is normal that there is none completed informational offers in the right barplot.
+
 ## Variables of Interest
 After the total revenue per customer has been determined, it is possible to calculate the average revenue per year. This is important because it allows a long-term customer and a new customer to be compared in a fair manner.\
 Another potential variable is the duration a customer has been a member. \
