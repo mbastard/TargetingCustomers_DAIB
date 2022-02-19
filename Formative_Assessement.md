@@ -61,7 +61,7 @@ From the structure of the data (e.g. "buy one get one" campaign type), we assume
 
 While sending an offer to a client, we might except that the customer successively receives, viewes, and completes the offer. However, it might be that some clients do not view and/or do not complete the offer. By filtering out the transaction's events (i.e. keeping only the received, viewed, and completed offers) and merging the trancript dataset with the portfolio dataset, we can group by event and offer type. Then, we can count the received, viewed, and completed offers for each offer type (i.e. discount, BOGO, and informational) over all events.
 
-<img src="./plots/offer_conversion_by_type.png" alt="drawing" width="800"/>
+<img src="./plots/offer_conversion_by_type.jpg" alt="drawing" width="800"/>
 
 Looking at the plot above, we notice that more clients view a BOGO offer than a Discount offer after receiving it. However, there are more clients completing the Discount offer than the BOGO offer which might sound a bit counter-intuitive.
 By definition, the informational offer type can only be received and viewed. Therefore, it is normal that there is none completed informational offers in the right barplot.
