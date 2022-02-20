@@ -7,8 +7,6 @@ A cornerstone of every successful business is identifying potential customers, i
 The goal of this project is to segment a population of customers into categories based on what promotion they respond best to and identify the ideal promotion for each customer.  This project will attempt to cluster the customers into 11 groups, one for each promotion and one group for customers who do not respond to promotions.\
 If this intitial approach, is unsucsesful, the researches will atempt to segment the population into three groups, one for each offer type. 
 
-*An alternative to this approach would be to cluster customers into 3 groups, one for each offer type, if no significant patterns emerged from the former analysis given that 11 groups might be too many for the studied data sample (Mickael)*.
-
 This is because a company should only market to those individuals where it believes it makes sense to promote to.
 
 ## Data
