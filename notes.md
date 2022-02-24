@@ -5,6 +5,10 @@
  * a. Formative Submission - Group 1.pdf --> Mickael
  * b. Group4_final.pdf --> Felix
  * c. group_project_report.pdf --> Gabriel
+* 3. Start the clustering modelling using K-Means- Use 3 different ways of evaluating the best number of clusters
+ * a. Silhouette Analysis --> Gabriel
+ * b. Elbow Method --> Felix
+ * c. Gap Statistics Method --> Mickael
 
 # Goals for week (24/02/2022)
 
