@@ -1,4 +1,4 @@
-# Goals for next week
+# Goals for next week (03/03/2022)
 
 * 1. Finalize preprocessing pipeline. Use data_prep notebook as template. (@all)
 * 2. Start giving feedback to formative assessments - one each (@all) - deadline is on March 7th
@@ -10,12 +10,12 @@
  * b. Elbow Method --> Felix
  * c. Gap Statistics Method --> Mickael
 
-# Goals for week (24/02/2022)
+# Goals for week 24/02/2022
 
 * 1. Finalize outlier detection and removal/imputation of the outliers (@Gabriel + @Mickael)
 * 2. Finalize description (2 | 3 pages) (@All | Lead on Felix)
 
-# Goals for week (17/02/2022)
+# Goals for week 17/02/2022
 
 * 1. Finalize the dataframe that we will do the clustering analysis from (@Mickael + @Gabriel)
   * a. outlier detection (@Gabriel)
