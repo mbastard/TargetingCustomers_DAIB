@@ -2,6 +2,9 @@
 
 * 1. Finalize preprocessing pipeline. Use data_prep notebook as template. (@all)
 * 2. Start giving feedback to formative assessments - one each (@all) - deadline is on March 7th
+ * a. Formative Submission - Group 1.pdf --> Mickael
+ * b. Group4_final.pdf --> Felix
+ * c. group_project_report.pdf --> Gabriel
 
 # Goals for week (24/02/2022)
 
