@@ -1,5 +1,6 @@
 # This python file contains functions for reading and preprocessing the raw data
 
+
 import numpy as np
 import pandas as pd
 import random
@@ -57,7 +58,7 @@ def missingValuesProfileIncome(profile, how = 'remove'):
     else:
         print("Please specify how = 'remove' or 'impute'!")
 
-    return profile
+    return profile.copy()
 
 # Function to remove or impute missing values for the gender column in the profile dataframe
 def missingValuesProfileGender(profile, how = 'remove'):
@@ -81,7 +82,7 @@ def missingValuesProfileGender(profile, how = 'remove'):
     else:
         print("Please specify how = 'remove' or 'impute'!")
         
-    return profile
+    return profile.copy()
 
 # Function to remove or impute missing values for the age column in the profile dataframe
 def missingValuesProfileAge(profile, how = 'remove'):
@@ -99,7 +100,7 @@ def missingValuesProfileAge(profile, how = 'remove'):
     else:
         print("Please specify how = 'remove' or 'impute'!")
 
-    return profile
+    return profile.copy()
 
 
 # Function encoding categorical variables into binary variables
