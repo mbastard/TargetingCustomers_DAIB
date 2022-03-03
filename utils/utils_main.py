@@ -324,6 +324,7 @@ def preprocessing(portfolio, profile, transcript, merge_how="outer"):
     profile_prep['prep_tot_aver_spend_bogo'] = profile_prep['prep_tot_aver_spend_bogo'].fillna(0.0) ## Set null/Nan prep_tot_aver_spend_bogo to zero 
 
     
+    
     return profile_prep
 
 # Function extracting and processing the transaction events from the transcript dataframe
