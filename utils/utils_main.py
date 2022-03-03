@@ -272,6 +272,58 @@ def preprocessing(portfolio, profile, transcript, merge_how="outer"):
     
     profile_prep = pd.merge(trans_count, profile_prep, on="id_membership", how=merge_how) # Merge trans_count and profile_prep and strore the result in profile_prep
     
+    #### RECENCY and T OVER THE SET PROMOTION PERIOD ####
+    #### prep_recency ####
+    #### prep_T ####
+    
+    trans = transcript.query('event == "transaction"')
+    # Suppose that time is in hours and the starting time is 2000-01-01
+    trans['datetime'] = trans['time'].apply(lambda x: pd.Timestamp('2000-01-01T12') + pd.Timedelta(hours=x)) 
+    rf = summary_data_from_transaction_data(trans, 'id_membership', 'datetime', monetary_value_col='amount')
+    rf = rf.reset_index(level=[0])
+    rf.rename(columns = {'recency':'prep_recency', 'T':'prep_T'}, inplace = True) # rename "time" column to "prep_nb_of_offer_rec" column
+    
+    profile_prep = pd.merge(rf[["id_membership", "prep_recency", "prep_T"]], profile_prep, on="id_membership", how=merge_how)
+    
+    #### TOTAL AVERAGE SPENT ON DISCOUNT OFFERS PER CUSTOMER ####
+    #### prep_tot_aver_spend_discount ####
+    
+    #### Reformating of the data ####
+    
+    transcript_merged = pd.merge(portfolio, transcript, on="id_promotion", how=merge_how) # merge on id_promotion
+    offers = transcript_merged[transcript_merged.event != "transaction"]
+    transactions = transcript_merged[transcript_merged.event == "transaction"]
+    trans_offer = pd.merge(transactions[["time", "amount","id_membership"]], offers, on=["time", "id_membership"], how=merge_how)
+    trans_offer = trans_offer[trans_offer.event == "offer completed"].copy()
+    
+    #### Compute prep_tot_aver_spend_discount ####
+    
+    trans_count_dis = trans_offer.query('offer_type == "discount"') # Filter on discount offer type
+    trans_count_dis = trans_count_dis.groupby('id_membership').mean() # groupby id_membership and apply mean
+    trans_count_dis = trans_count_dis.reset_index(level=[0]) # reset index
+    
+    trans_count_dis.rename(columns = {'amount_x':'prep_tot_aver_spend_discount'}, inplace = True) # rename "amount_x" column to "prep_tot_aver_spend_discount" column
+    
+    trans_count_dis = trans_count_dis[["id_membership", "prep_tot_aver_spend_discount"]] # only keep the prep_tot_aver_spend_discount and id_membership columns before merging 
+    profile_prep = pd.merge(trans_count_dis, profile_prep, on="id_membership", how=merge_how) # Merge trans_count_dis and profile_prep and strore the result in profile_prep
+    profile_prep['prep_tot_aver_spend_discount'] = profile_prep['prep_tot_aver_spend_discount'].fillna(0.0) ## Set null/Nan prep_tot_aver_spend_discount to zero 
+    
+    #### TOTAL AVERAGE SPENT ON BOGO OFFERS PER CUSTOMER ####
+    #### prep_tot_aver_spend_bogo ####
+    
+    #### Compute prep_tot_aver_spend_bogo ####
+    
+    trans_count_bogo = trans_offer.query('offer_type == "bogo"') # Filter on discount offer type
+    trans_count_bogo = trans_count_bogo.groupby('id_membership').mean() # groupby id_membership and apply mean
+    trans_count_bogo = trans_count_bogo.reset_index(level=[0]) # reset index
+    
+    trans_count_bogo.rename(columns = {'amount_x':'prep_tot_aver_spend_bogo'}, inplace = True) # rename "amount_x" column to "prep_tot_aver_spend_bogo" column
+    
+    trans_count_bogo = trans_count_bogo[["id_membership", "prep_tot_aver_spend_bogo"]] # only keep the prep_tot_aver_spend_bogo and id_membership columns before merging 
+    profile_prep = pd.merge(trans_count_bogo, profile_prep, on="id_membership", how=merge_how) # Merge trans_count_dis and profile_prep and strore the result in profile_prep
+    profile_prep['prep_tot_aver_spend_bogo'] = profile_prep['prep_tot_aver_spend_bogo'].fillna(0.0) ## Set null/Nan prep_tot_aver_spend_bogo to zero 
+
+    
     return profile_prep
 
 # Function extracting and processing the transaction events from the transcript dataframe
@@ -295,7 +347,7 @@ def getTransactions(transcript, profile):
     #rf.drop('T', axis=1, inplace=True) # Drop T column :  This is equal to the duration between a customer’s first purchase and the end of the period under study
 
     #customers = profile.join(rf)
-    customers = test = pd.merge(profile, rf, on="id_membership", how="outer")    
+    customers = pd.merge(profile, rf, on="id_membership", how="outer")    
     
     return transactions, customers
 
