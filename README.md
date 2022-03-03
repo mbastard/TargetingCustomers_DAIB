@@ -78,12 +78,14 @@ customer, the total number of completed offers, or the number of transactions ov
 
 These informative variables are derived while calling the preprocessing() fucntion in the utils/utils_main.py file
 
-* prep_tot_aver_spend : TOTAL AVERAGE SPEND PER CUSTOMER
+* prep_tot_aver_spend (same as prep_monetary_value) : TOTAL AVERAGE SPEND PER CUSTOMER
 * prep_tot_spend : TOTAL SPEND PER CUSTOMER
 * prep_nb_of_offer_rec : NUMBER OF OFFER RECEIVED OVER THE SET PROMOTION PERIOD
 * prep_nb_of_offer_view : NUMBER OF OFFER VIEWED OVER THE SET PROMOTION PERIOD 
 * prep_nb_of_offer_comp : TOTAL NUMBER OF COMPLETED OFFER OVER THE SET PROMOTION PERIOD
-* prep_nb_of_transactions : NUMBER OF TRANSACTIONS OVER THE SET PROMOTION PERIOD
+* prep_nb_of_transactions (same as prep_frequency + 1) : NUMBER OF TRANSACTIONS OVER THE SET PROMOTION PERIOD
+* prep_recency : age of the customer when they made their most recent purchases in number of days. This is equal to the duration between a customer’s first purchase and their latest purchase. (Thus if they have made only 1 purchase, the recency is 0. If they have made no purchase, the recency is NaN)
+* prep_T : age of the customer in days. This is equal to the duration between a customer’s first purchase and the end of the period under study.
 
 ## Important links
 
