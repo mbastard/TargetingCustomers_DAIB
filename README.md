@@ -17,6 +17,8 @@ Folders:
 * "data" contains the raw json files
 * "eda" contains notebooks for the Exploratory Data Analysis phase
 * "utils" contains diverse libraries (e.g. utils_main for reading and preprocessing the json files)
+* "prep" contains the code to preprocess the data and to generate a common final dataset used for clustering
+* "clustering" contains notebook sfor the Clustering phase
 
 Files:
 * "notes.md" contains all the goals (i.e. tasks) that have been set for the next meeting. This file contains also the findings that will be discussed during our weekly meetings.
