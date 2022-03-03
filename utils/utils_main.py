@@ -212,6 +212,7 @@ def preprocessing(portfolio, profile, transcript, merge_how="outer"):
     trans_mean = trans_mean[["id_membership", "prep_tot_aver_spend"]] # only keep the prep_tot_aver_spend and id_membership columns before merging
     
     profile_prep = pd.merge(trans_mean, profile, on="id_membership", how=merge_how) # Merge trans_mean and profile and strore the result in profile_prep
+    profile_prep['prep_tot_aver_spend'] = profile_prep['prep_tot_aver_spend'].fillna(0.0) ## Set null/Nan prep_tot_aver_spend to zero 
     
     #### TOTAL SPEND PER CUSTOMER ####
     #### prep_tot_spend ####
@@ -223,6 +224,7 @@ def preprocessing(portfolio, profile, transcript, merge_how="outer"):
     trans_sum = trans_sum[["id_membership", "prep_tot_spend"]] # only keep the prep_tot_spend and id_membership columns before merging
     
     profile_prep = pd.merge(trans_sum, profile_prep, on="id_membership", how=merge_how) # Merge trans_sum and profile_prep and strore the result in profile_prep
+    profile_prep['prep_tot_spend'] = profile_prep['prep_tot_spend'].fillna(0.0) ## Set null/Nan prep_tot_spend to zero 
     
     
     #### TOTAL NUMBER OF COMPLETED OFFER OVER THE SET PROMOTION PERIOD ####
@@ -235,6 +237,7 @@ def preprocessing(portfolio, profile, transcript, merge_how="outer"):
     trans_count_filt = trans_count_filt[["id_membership", "prep_nb_of_offer_comp"]] # only keep the prep_nb_of_offer_comp and id_membership columns before merging
     
     profile_prep = pd.merge(trans_count_filt, profile_prep, on="id_membership", how=merge_how) # Merge trans_count_filt and profile_prep and strore the result in profile_prep
+    profile_prep['prep_nb_of_offer_comp'] = profile_prep['prep_nb_of_offer_comp'].fillna(0.0) ## Set null/Nan prep_nb_of_offer_comp to zero 
     
     
     #### NUMBER OF TRANSACTIONS OVER THE SET PROMOTION PERIOD ####
@@ -247,6 +250,7 @@ def preprocessing(portfolio, profile, transcript, merge_how="outer"):
     trans_count = trans_count[["id_membership", "prep_nb_of_transactions"]] # only keep the prep_nb_of_transactions and id_membership columns before merging
     
     profile_prep = pd.merge(trans_count, profile_prep, on="id_membership", how=merge_how) # Merge trans_count and profile_prep and strore the result in profile_prep
+    profile_prep['prep_nb_of_transactions'] = profile_prep['prep_nb_of_transactions'].fillna(0.0) ## Set null/Nan prep_nb_of_transactions to zero 
     
     #### NUMBER OF OFFER RECEIVED OVER THE SET PROMOTION PERIOD ####
     #### prep_nb_of_offer_rec ####
@@ -258,6 +262,7 @@ def preprocessing(portfolio, profile, transcript, merge_how="outer"):
     trans_count = trans_count[["id_membership", "prep_nb_of_offer_rec"]] # only keep the prep_nb_of_offer_rec and id_membership columns before merging
     
     profile_prep = pd.merge(trans_count, profile_prep, on="id_membership", how=merge_how) # Merge trans_count and profile_prep and strore the result in profile_prep
+    profile_prep['prep_nb_of_offer_rec'] = profile_prep['prep_nb_of_offer_rec'].fillna(0.0) ## Set null/Nan prep_nb_of_offer_rec to zero 
     
     
     #### NUMBER OF OFFER VIEWED OVER THE SET PROMOTION PERIOD ####
@@ -270,6 +275,7 @@ def preprocessing(portfolio, profile, transcript, merge_how="outer"):
     trans_count = trans_count[["id_membership", "prep_nb_of_offer_view"]] # only keep the prep_nb_of_offer_view and id_membership columns before merging
     
     profile_prep = pd.merge(trans_count, profile_prep, on="id_membership", how=merge_how) # Merge trans_count and profile_prep and strore the result in profile_prep
+    profile_prep['prep_nb_of_offer_view'] = profile_prep['prep_nb_of_offer_view'].fillna(0.0) ## Set null/Nan prep_nb_of_offer_rec to zero 
     
     #### RECENCY and T OVER THE SET PROMOTION PERIOD ####
     #### prep_recency ####
@@ -283,8 +289,10 @@ def preprocessing(portfolio, profile, transcript, merge_how="outer"):
     rf.rename(columns = {'recency':'prep_recency', 'T':'prep_T'}, inplace = True) # rename "time" column to "prep_nb_of_offer_rec" column
     
     profile_prep = pd.merge(rf[["id_membership", "prep_recency", "prep_T"]], profile_prep, on="id_membership", how=merge_how)
+    profile_prep['prep_recency'] = profile_prep['prep_recency'].fillna(-1) ## Set null/Nan prep_recency to -1 - it means that no transaction has been performed 
+    profile_prep['prep_T'] = profile_prep['prep_T'].fillna(-1) ## Set null/Nan prep_T to -1 - it means that no transaction has been performed 
     
-    #### TOTAL AVERAGE SPENT ON DISCOUNT OFFERS PER CUSTOMER ####
+    #### TOTAL AVERAGE SPEND ON DISCOUNT OFFERS PER CUSTOMER ####
     #### prep_tot_aver_spend_discount ####
     
     #### Reformating of the data ####
@@ -307,7 +315,7 @@ def preprocessing(portfolio, profile, transcript, merge_how="outer"):
     profile_prep = pd.merge(trans_count_dis, profile_prep, on="id_membership", how=merge_how) # Merge trans_count_dis and profile_prep and strore the result in profile_prep
     profile_prep['prep_tot_aver_spend_discount'] = profile_prep['prep_tot_aver_spend_discount'].fillna(0.0) ## Set null/Nan prep_tot_aver_spend_discount to zero 
     
-    #### TOTAL AVERAGE SPENT ON BOGO OFFERS PER CUSTOMER ####
+    #### TOTAL AVERAGE SPEND ON BOGO OFFERS PER CUSTOMER ####
     #### prep_tot_aver_spend_bogo ####
     
     #### Compute prep_tot_aver_spend_bogo ####
