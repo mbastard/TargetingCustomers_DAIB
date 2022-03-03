@@ -1,4 +1,15 @@
-# Goals for next week (03/03/2022)
+# Goals for next week (10/03/2022)
+
+* 1. Upload formative assessments reviews (@Felix)
+* 2. Create 3 categories for income and age (@Gabriel)
+* 3. Implement more informative variables (e.g. wrt email, social, ...) (@Mickael & @Felix)
+* 4. Code Review (@Felix & all)
+* 5. Modelling using K-Means- Use 3 different ways of evaluating the best number of clusters
+  * a. Silhouette Analysis --> Gabriel
+  * b. Elbow Method --> Felix
+  * c. Gap Statistics Method --> Mickael
+
+# Goals for week (03/03/2022)
 
 * 1. Finalize preprocessing pipeline. Use data_prep notebook as template (@all)
 * 2. Start giving feedback to formative assessments - one each (@all) - deadline is on March 7th
