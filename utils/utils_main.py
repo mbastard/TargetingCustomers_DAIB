@@ -6,26 +6,13 @@ import random
 from lifetimes.utils import summary_data_from_transaction_data
 
 
-# Function executing the preprocessing pipeline
-def prepPipeline(dropUnnecessaryCol = False, impute = True, how = 'impute'):
-    # Read files
-    portfolio, profile, transcript  = readFiles(dropUnnecessaryCol = dropUnnecessaryCol)
-    
-    # Deal with missing values in the profile dataset (Optionnal)
-    if impute == True:
-        profile = missingValuesProfileIncome(profile, how = how)
-        profile = missingValuesProfileGender(profile, how = how)
-        profile = missingValuesProfileAge(profile, how = how)
-        
-    # Pre-processing - compute informative variables
-    profile = preprocessing(portfolio, profile, transcript)
-    
-    # One-hot encoding
-    
-    portfolio, profile, transcript = oneHotEncoder(portfolio, profile, transcript, dropUnnecessaryCol = dropUnnecessaryCol)
-    
-    return portfolio, profile, transcript      
-    
+# return the seed for all the random processes
+def getSeed():
+    return 1234
+
+# Set seed for the random process
+random.seed(getSeed()) 
+
 
 # Function reading the json raw files and doing some proprocessing
 # Returns the preprocessed portfolio, profile, and transcript data frames
