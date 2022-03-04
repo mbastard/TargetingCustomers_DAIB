@@ -46,17 +46,18 @@ def screePlot(profile, var_explained=0.8):
     
 
 # Function plotting the number of customers by clusters
-def customersByClusters(profile, kmeans_clusters):
+def customersByClusters(profile, kmeans_clusters, filename=""):
     df = profile.copy().reset_index()
     df['cluster'] = kmeans_clusters
     ax = sns.countplot(x='cluster', data=df, palette=mypalette)
     ax.set_title('Customers by cluster');
     fig = ax.get_figure()
-    fig.savefig("customers_by_cluster_mb_v1.png") 
+    if filename != "":
+        fig.savefig(filename+".png") 
     
 # Function plotting a collection of informative variable subplots for final interpretation of the different clusters.
 # Each subplot shows how one variable is distributed across clusters.
-def barPlotGrid(profile, kmeans_clusters):
+def barPlotGrid(profile, kmeans_clusters, filename=""):
     df = profile.copy()
     df['cluster'] = kmeans_clusters
     df = df.melt(id_vars=['id_membership', 'cluster'])
@@ -64,5 +65,6 @@ def barPlotGrid(profile, kmeans_clusters):
     
     g = sns.FacetGrid(df, col='variable', hue='cluster', col_wrap=5, height=2, sharey=False, palette=mypalette)
     g = g.map(plt.bar, 'cluster', 'value').set_titles("{col_name}")
-    g.savefig("cluster_facetgrid_mb_v1.png")  
+    if filename != "":
+        g.savefig(filename+".png")  
     
