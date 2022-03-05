@@ -338,6 +338,40 @@ def preprocessing(portfolio, profile, transcript, merge_how="outer"):
     trans_count_bogo = trans_count_bogo[["id_membership", "prep_tot_aver_spend_bogo"]] # only keep the prep_tot_aver_spend_bogo and id_membership columns before merging 
     profile_prep = pd.merge(trans_count_bogo, profile_prep, on="id_membership", how=merge_how) # Merge trans_count_dis and profile_prep and strore the result in profile_prep
     profile_prep['prep_tot_aver_spend_bogo'] = profile_prep['prep_tot_aver_spend_bogo'].fillna(0.0) ## Set null/Nan prep_tot_aver_spend_bogo to zero 
+    
+    #### TOTAL AVERAGE REWARD ON COMPLETED OFFERS PER CUSTOMER ####
+    #### prep_tot_aver_reward ####
+    
+    trans_mean = trans_offer.groupby('id_membership').mean() # groupby id_membership and apply mean
+    trans_mean = trans_mean.reset_index(level=[0]) # reset index
+    trans_mean.rename(columns = {'reward_trans':'prep_tot_aver_reward'}, inplace = True) # rename "reward_trans" column to "prep_tot_aver_reward" column
+    trans_mean = trans_mean[["id_membership", "prep_tot_aver_reward"]] # only keep the prep_tot_aver_reward and id_membership columns before merging 
+
+
+    profile_prep = pd.merge(trans_mean, profile_prep, on="id_membership", how=merge_how) # Merge trans_mean and profile_prep and store the result in profile_prep
+    profile_prep['prep_tot_aver_reward'] = profile_prep['prep_tot_aver_reward'].fillna(0.0) ## Set null/Nan prep_tot_aver_reward to zero 
+    
+    
+    #### TOTAL AVERAGE SPEND EXCLUDING OFFERS PER CUSTOMER ####
+    #### prep_tot_aver_spend_exc_offers ####
+    
+    # Looking for the transactions that are not associated with any offer received, viewed or completed events #
+    trans_count = transcript.groupby(["id_membership", "time"]).count()
+    trans_count.reset_index(inplace=True)
+    trans_count.rename(columns = {'event':'count_event'}, inplace = True)
+    trans_count = trans_count[["id_membership", "time", "count_event"]]
+    trans_count = pd.merge(trans_count, transcript, on=["id_membership", "time"], how=merge_how)
+    trans_count = trans_count[trans_count["count_event"] == 1] # only keep transaction with 1 event (i.e. not associated with offer received, viewed or completed events)
+    trans_count = trans_count[trans_count["event"] == "transaction"] # Only keep transaction event and NOT offer received, viewed or completed
+    
+    trans_mean = trans_count.groupby(["id_membership"]).mean()
+    trans_mean.reset_index(level=[0], inplace=True)
+    trans_mean.rename(columns = {'amount':'prep_tot_aver_spend_exc_offers'}, inplace = True)
+    trans_mean = trans_mean[["id_membership", "prep_tot_aver_spend_exc_offers"]]
+    
+    profile_prep = pd.merge(trans_mean, profile_prep, on="id_membership", how=merge_how) # Merge trans_count_dis and profile_prep and strore the result in profile_prep
+    profile_prep['prep_tot_aver_spend_exc_offers'] = profile_prep['prep_tot_aver_spend_exc_offers'].fillna(0.0) ## Set null/Nan prep_tot_aver_spend_exc_offers to zero 
+    
 
     
     
