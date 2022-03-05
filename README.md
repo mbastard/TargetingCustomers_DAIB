@@ -83,7 +83,9 @@ These informative variables are derived while calling the preprocessing() fucnti
 * prep_tot_aver_spend (same as monetary value) : TOTAL AVERAGE SPEND PER CUSTOMER
 * prep_tot_aver_spend_discount : TOTAL AVERAGE SPEND ON DISCOUNT OFFERS PER CUSTOMER
 * prep_tot_aver_spend_bogo : TOTAL AVERAGE SPEND ON BOGO OFFERS PER CUSTOMER
+* prep_tot_aver_spend_exc_offers : TOTAL AVERAGE SPEND EXCLUDING OFFERS PER CUSTOMER (i.e. average amount of transactions that have nothing to do with offers)
 * prep_tot_spend : TOTAL SPEND PER CUSTOMER
+* prep_tot_aver_reward : TOTAL AVERAGE REWARD ON COMPLETED OFFERS PER CUSTOMER
 * prep_nb_of_offer_rec : NUMBER OF OFFER RECEIVED OVER THE SET PROMOTION PERIOD
 * prep_nb_of_offer_view : NUMBER OF OFFER VIEWED OVER THE SET PROMOTION PERIOD 
 * prep_nb_of_offer_comp : TOTAL NUMBER OF COMPLETED OFFER OVER THE SET PROMOTION PERIOD
