@@ -240,8 +240,8 @@ def preprocessing(portfolio, profile, transcript, merge_how="outer"):
     profile['income_cat'] = profile.apply(lambda row: income_categorizer(row, low, medium), axis=1)
 
     # Add column to categorize age into three categories low, medium and high
-    low = profile['age'].quantile(0.33)
-    medium = profile['age'].quantile(0.33)
+    low = 30
+    medium = 50
     profile['age_cat'] = profile.apply(lambda row: age_categorizer(row, low, medium), axis=1)
     
     #### TOTAL AVERAGE SPEND PER CUSTOMER ####
