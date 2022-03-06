@@ -205,13 +205,25 @@ def contains(channels, testedChannel="email"):
         r = 1
     return r
 
-#Function to categroize income and age into three categorie
-def categorizer(row, low, medium):
+#Function to categroize income into three categories
+def income_categorizer(row, low, medium):
 
     if row['income'] < low:
         return 'low'
 
     elif row['income'] > low and row['income'] < medium:
+        return 'medium'
+
+    else:
+        return 'high'
+
+#Function to categroize age into three categories
+def age_categorizer(row, low, medium):
+
+    if row['age'] < low:
+        return 'low'
+
+    elif row['age'] > low and row['age'] < medium:
         return 'medium'
 
     else:
@@ -225,12 +237,12 @@ def preprocessing(portfolio, profile, transcript, merge_how="outer"):
     # Add column to categorize income into three categories low, medium and high
     low = profile['income'].quantile(0.33)
     medium = profile['income'].quantile(0.66)
-    profile['income_cat'] = profile.apply(lambda row: categorizer(row, low, medium), axis=1)
+    profile['income_cat'] = profile.apply(lambda row: income_categorizer(row, low, medium), axis=1)
 
     # Add column to categorize age into three categories low, medium and high
-    low = 30
-    medium = 50
-    profile['age_cat'] = profile.apply(lambda row: categorizer(row, low, medium), axis=1)
+    low = profile['age'].quantile(0.33)
+    medium = profile['age'].quantile(0.33)
+    profile['age_cat'] = profile.apply(lambda row: age_categorizer(row, low, medium), axis=1)
     
     #### TOTAL AVERAGE SPEND PER CUSTOMER ####
     #### prep_tot_aver_spend ####
