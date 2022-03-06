@@ -132,7 +132,10 @@ def oneHotEncoder(portfolio, profile, transcript, dropUnnecessaryCol=False):
     gender_dummies = profile['gender'].str.get_dummies().add_prefix('gender_')
     year_joined_dummies = profile['year_joined'].str.get_dummies().add_prefix('year_joined_')
 
-    profile = pd.concat([profile, gender_dummies, year_joined_dummies], axis=1)
+    age_dummies = profile['age_cat'].str.get_dummies().add_prefix('age_cat_')
+    income_dummies = profile['income_cat'].str.get_dummies().add_prefix('income_cat_')
+
+    profile = pd.concat([profile, gender_dummies, year_joined_dummies, age_dummies, income_dummies], axis=1)
     
     #### TRANSCRIPT DATAFRAME ####
     
