@@ -32,7 +32,7 @@ def readFiles(dropUnnecessaryCol = False):
     profile['became_member_on'] = pd.to_datetime(profile['became_member_on'], format='%Y%m%d')
     # fill empty genders to "NA" string
     profile['gender'] = profile['gender'].fillna('NA')
-    
+
     #### TRANSCRIPT DATA FRAME ####
     # Extract values from the "value" dictionnary column into id_promotion, amount, and reward columns
     transcript["id_promotion_rec"] = transcript["value"].apply(dict2Offerid) # promotion id for the offers received
@@ -49,7 +49,6 @@ def readFiles(dropUnnecessaryCol = False):
         transcript.drop("value", axis=1, inplace=True)
     
     return portfolio, profile, transcript
-
 
 # Function to remove or impute missing values for the income column in the profile dataframe
 def missingValuesProfileIncome(profile, how = 'remove'):
@@ -133,7 +132,10 @@ def oneHotEncoder(portfolio, profile, transcript, dropUnnecessaryCol=False):
     gender_dummies = profile['gender'].str.get_dummies().add_prefix('gender_')
     year_joined_dummies = profile['year_joined'].str.get_dummies().add_prefix('year_joined_')
 
-    profile = pd.concat([profile, gender_dummies, year_joined_dummies], axis=1)
+    age_dummies = profile['age_cat'].str.get_dummies().add_prefix('age_cat_')
+    income_dummies = profile['income_cat'].str.get_dummies().add_prefix('income_cat_')
+
+    profile = pd.concat([profile, gender_dummies, year_joined_dummies, age_dummies, income_dummies], axis=1)
     
     #### TRANSCRIPT DATAFRAME ####
     
@@ -205,11 +207,45 @@ def contains(channels, testedChannel="email"):
     if testedChannel in channels:
         r = 1
     return r
+
+#Function to categroize income into three categories
+def income_categorizer(row, low, medium):
+
+    if row['income'] < low:
+        return 'low'
+
+    elif row['income'] > low and row['income'] < medium:
+        return 'medium'
+
+    else:
+        return 'high'
+
+#Function to categroize age into three categories
+def age_categorizer(row, low, medium):
+
+    if row['age'] < low:
+        return 'low'
+
+    elif row['age'] > low and row['age'] < medium:
+        return 'medium'
+
+    else:
+        return 'high'
     
 # Function deriving a set of informative variables that we can use to cluster customers
 # The derived variables will start with "prep_" for preprocessing
 # The derived variables are stored in the profile_prep data frame
 def preprocessing(portfolio, profile, transcript, merge_how="outer"):
+
+    # Add column to categorize income into three categories low, medium and high
+    low = profile['income'].quantile(0.33)
+    medium = profile['income'].quantile(0.66)
+    profile['income_cat'] = profile.apply(lambda row: income_categorizer(row, low, medium), axis=1)
+
+    # Add column to categorize age into three categories low, medium and high
+    low = 30
+    medium = 50
+    profile['age_cat'] = profile.apply(lambda row: age_categorizer(row, low, medium), axis=1)
     
     #### TOTAL AVERAGE SPEND PER CUSTOMER ####
     #### prep_tot_aver_spend ####
