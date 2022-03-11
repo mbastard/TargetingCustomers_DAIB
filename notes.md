@@ -5,6 +5,7 @@
 * 3. Review code (@Felix & @Mickael)
 * 4. Define theme of the plots (@Mickael & @Felix) --> ggplot, economist (look at existing packages)
 * 5. Try to filter out non-interesting group (i.e. Men that spend very little) and rerun clustering on the interesting group
+* 6. Ask Colette for feedback (@Felix)
 
 # Goals for week (10/03/2022)
 
