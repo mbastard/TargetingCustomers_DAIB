@@ -1,4 +1,13 @@
-# Goals for next week (10/03/2022)
+# Goals for next week (17/03/2022)
+
+* 1. Include interpretation with new variables (i.e. age and income ...) (@Gabriel)
+* 2. Start drafting the slides (i.e. background, theme) (@Felix)
+* 3. Review code (@Felix & @Mickael)
+* 4. Define theme of the plots (@Mickael & @Felix) --> ggplot, economist (look at existing packages)
+*  
+
+
+# Goals for week (10/03/2022)
 
 * 1. Upload formative assessments reviews (@Felix)
 * 2. Create 3 categories for income and age (@Gabriel)
