@@ -136,6 +136,10 @@ def oneHotEncoder(portfolio, profile, transcript, dropUnnecessaryCol=False):
     income_dummies = profile['income_cat'].str.get_dummies().add_prefix('income_cat_')
 
     profile = pd.concat([profile, gender_dummies, year_joined_dummies, age_dummies, income_dummies], axis=1)
+
+    # Drop unnessecary columns
+    profile = profile.drop(['income_cat', 'age_cat'], axis=1)
+
     
     #### TRANSCRIPT DATAFRAME ####
     
