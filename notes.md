@@ -1,4 +1,15 @@
-# Goals for next week (17/03/2022) | Deadline April 1st
+# Goals for next week (21/03/2022) | Deadline April 1st
+
+* 1. Include new variables (i.e. difference prep_tot_aver_spend_bogo - prep_tot_aver_spend_exc_offers & difference prep_tot_aver_spend_discount - prep_tot_aver_spend_exc_offers) (@Felix & @Mickael)
+* 2. Interpret new results (@Felix & @Mickael) 
+* 3. Update and polish up the first slides (i.e. introduction + explorative analysis) (@Gabriel)
+* 4. Go through the slides and review (@Mickael)
+* 5. Think about your Individual Contributions
+
+Link to presentation
+https://gla.sharepoint.com/:p:/r/sites/DAIBI-Groupwork/_layouts/15/Doc.aspx?sourcedoc=%7B511595EA-3667-4946-91F3-0E9262DD7B76%7D&file=Presentation_Draft.pptx&action=edit&mobileredirect=true
+
+# Goals for week (17/03/2022)
 
 * 1. Include interpretation with new variables (i.e. age and income ...) (@Gabriel)
 * 2. Start drafting the slides (i.e. background, theme) (@Felix)
