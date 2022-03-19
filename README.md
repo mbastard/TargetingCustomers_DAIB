@@ -92,6 +92,9 @@ These informative variables are derived while calling the preprocessing() fucnti
 * prep_nb_of_transactions (same as frequency + 1) : NUMBER OF TRANSACTIONS OVER THE SET PROMOTION PERIOD
 * prep_recency : age of the customer when they made their most recent purchases in number of days. This is equal to the duration between a customer’s first purchase and their latest purchase. (Thus if they have made only 1 purchase, the recency is 0. If they have made no purchase, the recency is -1)
 * prep_T : age of the customer in days. This is equal to the duration between a customer’s first purchase and the end of the period under study. (If they have made no purchase, the recency is -1)
+* view_rate_after_rec : % of offers that have been viewed after receiving it = prep_nb_of_offer_view/prep_nb_of_offer_rec
+* comp_rate_after_view : % of offers that have been completed after viewing it = prep_nb_of_offer_comp/prep_nb_of_offer_view
+* comp_rate_after_rec : % of offers that have been completed after receiving it = prep_nb_of_offer_comp/prep_nb_of_offer_rec
 
 ## Important links
 
