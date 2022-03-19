@@ -131,6 +131,18 @@ def oneHotEncoder(portfolio, profile, transcript, dropUnnecessaryCol=False):
 
     gender_dummies = profile['gender'].str.get_dummies().add_prefix('gender_')
     year_joined_dummies = profile['year_joined'].str.get_dummies().add_prefix('year_joined_')
+    
+    
+    year_joined_dummies['year_joined_2013_2014'] = year_joined_dummies['year_joined_2013'] + year_joined_dummies['year_joined_2014']
+    year_joined_dummies['year_joined_2015_2016'] = year_joined_dummies['year_joined_2015'] + year_joined_dummies['year_joined_2016']
+    year_joined_dummies['year_joined_2017_2018'] = year_joined_dummies['year_joined_2017'] + year_joined_dummies['year_joined_2018']
+    
+    year_joined_dummies.drop("year_joined_2013", axis=1, inplace=True)
+    year_joined_dummies.drop("year_joined_2014", axis=1, inplace=True)
+    year_joined_dummies.drop("year_joined_2015", axis=1, inplace=True)
+    year_joined_dummies.drop("year_joined_2016", axis=1, inplace=True)
+    year_joined_dummies.drop("year_joined_2017", axis=1, inplace=True)
+    year_joined_dummies.drop("year_joined_2018", axis=1, inplace=True)
 
     age_dummies = profile['age_cat'].str.get_dummies().add_prefix('age_cat_')
     income_dummies = profile['income_cat'].str.get_dummies().add_prefix('income_cat_')
@@ -412,15 +424,16 @@ def preprocessing(portfolio, profile, transcript, merge_how="outer"):
     profile_prep = pd.merge(trans_mean, profile_prep, on="id_membership", how=merge_how) # Merge trans_count_dis and profile_prep and strore the result in profile_prep
     profile_prep['prep_tot_aver_spend_exc_offers'] = profile_prep['prep_tot_aver_spend_exc_offers'].fillna(0.0) ## Set null/Nan prep_tot_aver_spend_exc_offers to zero 
     
+
     #### DELTA OF THE TOTAL AVERAGE SPEND BOGO AND THE TOTAL AVERAGE SPEND EXCLUDING OFFERS PER CUSTOMER ####
     #### delta_prep_tot_aver_spend_bogo_exc_offers ####
     #### Formula: prep_tot_aver_spend_bogo - prep_tot_aver_spend_exc_offers ####
     #Recommend to keep NAN values because assuming the value is 0 would dilute the power of the variable
     #Variable shows the difference between average spend with bogo offer compared to average spend with no offer 
-    delta_prep=profile_prep[profile_prep["prep_tot_aver_spend_bogo"] !=0]
-    delta_prep['delta_prep_tot_aver_spend_bogo_exc_offers']=delta_prep['prep_tot_aver_spend_bogo']-delta_prep['prep_tot_aver_spend_exc_offers']
-    delta_prep.drop(delta_prep.columns.difference(['delta_prep_tot_aver_spend_bogo_exc_offers']), 1, inplace=True)
-    profile_prep=profile_prep.join(delta_prep)
+    #delta_prep=profile_prep[profile_prep["prep_tot_aver_spend_bogo"] !=0]
+    #delta_prep['delta_prep_tot_aver_spend_bogo_exc_offers']=delta_prep['prep_tot_aver_spend_bogo']-delta_prep['prep_tot_aver_spend_exc_offers']
+    #delta_prep.drop(delta_prep.columns.difference(['delta_prep_tot_aver_spend_bogo_exc_offers']), 1, inplace=True)
+    #profile_prep=profile_prep.join(delta_prep)
     #profile_prep['delta_prep_tot_aver_spend_bogo_exc_offers'] = profile_prep['delta_prep_tot_aver_spend_bogo_exc_offers'].fillna(0.0)
     
     #### DELTA OF THE TOTAL AVERAGE SPEND Discount AND THE TOTAL AVERAGE SPEND EXCLUDING OFFERS PER CUSTOMER ####
@@ -428,12 +441,32 @@ def preprocessing(portfolio, profile, transcript, merge_how="outer"):
     #### Formula: prep_tot_aver_spend_discount - prep_tot_aver_spend_exc_offers ####
     #Recommend to keep NAN values because assuming the value is 0 would dilute the power of the variable
     #Variable shows the difference between average spend with discount offer compared to average spend with no offer 
-    delta_prep=profile_prep[profile_prep["prep_tot_aver_spend_discount"] !=0]
-    delta_prep['delta_prep_tot_aver_spend_discount_exc_offers']=delta_prep['prep_tot_aver_spend_discount']-delta_prep['prep_tot_aver_spend_exc_offers']
-    delta_prep.drop(delta_prep.columns.difference(['delta_prep_tot_aver_spend_discount_exc_offers']), 1, inplace=True)
-    profile_prep=profile_prep.join(delta_prep)
+    #delta_prep=profile_prep[profile_prep["prep_tot_aver_spend_discount"] !=0]
+    #delta_prep['delta_prep_tot_aver_spend_discount_exc_offers']=delta_prep['prep_tot_aver_spend_discount']-delta_prep['prep_tot_aver_spend_exc_offers']
+    #delta_prep.drop(delta_prep.columns.difference(['delta_prep_tot_aver_spend_discount_exc_offers']), 1, inplace=True)
+    #profile_prep=profile_prep.join(delta_prep)
     #profile_prep['delta_prep_tot_aver_spend_discount_exc_offers'] = profile_prep['delta_prep_tot_aver_spend_discount_exc_offers'].fillna(0.0)
+
     
+    #### VIEW RATE FROM RECEIVED OFFERS ####
+    #### view_rate_after_rec ####
+    
+    # if prep_nb_of_offer_comp > prep_nb_of_offer_view  --> prep_nb_of_offer_view = prep_nb_of_offer_comp
+    profile_prep.loc[(profile_prep["prep_nb_of_offer_comp"] > profile_prep["prep_nb_of_offer_view"]), 'prep_nb_of_offer_view'] = profile_prep.loc[(profile_prep["prep_nb_of_offer_comp"] > profile_prep["prep_nb_of_offer_view"]), 'prep_nb_of_offer_comp']
+    
+    eps=0.0000001 # To avoid any divisions by zero
+
+    profile_prep["view_rate_after_rec"] = profile_prep["prep_nb_of_offer_view"] / (profile_prep["prep_nb_of_offer_rec"]+eps)
+    
+    #### COMPLETED RATE FROM VIEWED OFFERS ####
+    #### comp_rate_after_view ####
+    
+    profile_prep["comp_rate_after_view"] = profile_prep["prep_nb_of_offer_comp"] / (profile_prep["prep_nb_of_offer_view"]+eps)
+    
+    #### COMPLETED RATE FROM RECEIVED OFFERS ####
+    #### comp_rate_after_rec ####
+    
+    profile_prep["comp_rate_after_rec"] = profile_prep["prep_nb_of_offer_comp"] / (profile_prep["prep_nb_of_offer_rec"]+eps)
     
     return profile_prep
 
