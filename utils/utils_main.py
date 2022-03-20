@@ -430,22 +430,22 @@ def preprocessing(portfolio, profile, transcript, merge_how="outer"):
     #### Formula: prep_tot_aver_spend_bogo - prep_tot_aver_spend_exc_offers ####
     #Recommend to keep NAN values because assuming the value is 0 would dilute the power of the variable
     #Variable shows the difference between average spend with bogo offer compared to average spend with no offer 
-    #delta_prep=profile_prep[profile_prep["prep_tot_aver_spend_bogo"] !=0]
-    #delta_prep['delta_prep_tot_aver_spend_bogo_exc_offers']=delta_prep['prep_tot_aver_spend_bogo']-delta_prep['prep_tot_aver_spend_exc_offers']
-    #delta_prep.drop(delta_prep.columns.difference(['delta_prep_tot_aver_spend_bogo_exc_offers']), 1, inplace=True)
-    #profile_prep=profile_prep.join(delta_prep)
-    #profile_prep['delta_prep_tot_aver_spend_bogo_exc_offers'] = profile_prep['delta_prep_tot_aver_spend_bogo_exc_offers'].fillna(0.0)
+    delta_prep=profile_prep[profile_prep["prep_tot_aver_spend_bogo"] !=0]
+    delta_prep['delta_prep_tot_aver_spend_bogo_exc_offers']=delta_prep['prep_tot_aver_spend_bogo']-delta_prep['prep_tot_aver_spend_exc_offers']
+    delta_prep.drop(delta_prep.columns.difference(['delta_prep_tot_aver_spend_bogo_exc_offers']), 1, inplace=True)
+    profile_prep=profile_prep.join(delta_prep)
+    profile_prep['delta_prep_tot_aver_spend_bogo_exc_offers'] = profile_prep['delta_prep_tot_aver_spend_bogo_exc_offers'].fillna(0.0)
     
     #### DELTA OF THE TOTAL AVERAGE SPEND Discount AND THE TOTAL AVERAGE SPEND EXCLUDING OFFERS PER CUSTOMER ####
     #### delta_prep_tot_aver_spend_discount_exc_offers ####
     #### Formula: prep_tot_aver_spend_discount - prep_tot_aver_spend_exc_offers ####
     #Recommend to keep NAN values because assuming the value is 0 would dilute the power of the variable
     #Variable shows the difference between average spend with discount offer compared to average spend with no offer 
-    #delta_prep=profile_prep[profile_prep["prep_tot_aver_spend_discount"] !=0]
-    #delta_prep['delta_prep_tot_aver_spend_discount_exc_offers']=delta_prep['prep_tot_aver_spend_discount']-delta_prep['prep_tot_aver_spend_exc_offers']
-    #delta_prep.drop(delta_prep.columns.difference(['delta_prep_tot_aver_spend_discount_exc_offers']), 1, inplace=True)
-    #profile_prep=profile_prep.join(delta_prep)
-    #profile_prep['delta_prep_tot_aver_spend_discount_exc_offers'] = profile_prep['delta_prep_tot_aver_spend_discount_exc_offers'].fillna(0.0)
+    delta_prep=profile_prep[profile_prep["prep_tot_aver_spend_discount"] !=0]
+    delta_prep['delta_prep_tot_aver_spend_discount_exc_offers']=delta_prep['prep_tot_aver_spend_discount']-delta_prep['prep_tot_aver_spend_exc_offers']
+    delta_prep.drop(delta_prep.columns.difference(['delta_prep_tot_aver_spend_discount_exc_offers']), 1, inplace=True)
+    profile_prep=profile_prep.join(delta_prep)
+    profile_prep['delta_prep_tot_aver_spend_discount_exc_offers'] = profile_prep['delta_prep_tot_aver_spend_discount_exc_offers'].fillna(0.0)
 
     
     #### VIEW RATE FROM RECEIVED OFFERS ####
