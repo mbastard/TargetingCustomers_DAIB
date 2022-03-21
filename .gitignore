@@ -131,3 +131,4 @@ dmypy.json
 # Specific folders
 BKP/
 starbucks-customer-segmentation-master/
+clustering/*.png
