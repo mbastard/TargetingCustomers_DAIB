@@ -32,7 +32,10 @@ def readFiles(dropUnnecessaryCol = False):
     profile['became_member_on'] = pd.to_datetime(profile['became_member_on'], format='%Y%m%d')
     # fill empty genders to "NA" string
     profile['gender'] = profile['gender'].fillna('NA')
-
+    
+    profile['not_sharing_pers_data'] = 0
+    profile.loc[(profile["gender"] == "NA"), 'not_sharing_pers_data'] = 1
+    
     #### TRANSCRIPT DATA FRAME ####
     # Extract values from the "value" dictionnary column into id_promotion, amount, and reward columns
     transcript["id_promotion_rec"] = transcript["value"].apply(dict2Offerid) # promotion id for the offers received
@@ -381,7 +384,7 @@ def preprocessing(portfolio, profile, transcript, merge_how="outer"):
     
     #### Compute prep_tot_aver_spend_bogo ####
     
-    trans_count_bogo = trans_offer.query('offer_type == "bogo"') # Filter on discount offer type
+    trans_count_bogo = trans_offer.query('offer_type == "bogo"') # Filter on bogo offer type
     trans_count_bogo = trans_count_bogo.groupby('id_membership').mean() # groupby id_membership and apply mean
     trans_count_bogo = trans_count_bogo.reset_index(level=[0]) # reset index
     
@@ -390,6 +393,38 @@ def preprocessing(portfolio, profile, transcript, merge_how="outer"):
     trans_count_bogo = trans_count_bogo[["id_membership", "prep_tot_aver_spend_bogo"]] # only keep the prep_tot_aver_spend_bogo and id_membership columns before merging 
     profile_prep = pd.merge(trans_count_bogo, profile_prep, on="id_membership", how=merge_how) # Merge trans_count_dis and profile_prep and strore the result in profile_prep
     profile_prep['prep_tot_aver_spend_bogo'] = profile_prep['prep_tot_aver_spend_bogo'].fillna(0.0) ## Set null/Nan prep_tot_aver_spend_bogo to zero 
+    
+    #### COMPLETED AT LEAST ONE DISCOUNT OFFER ####
+    #### prep_comp_one_discount ####
+    
+    #### Compute prep_comp_one_discount ####
+    
+    trans_count_bogo = trans_offer.query('offer_type == "discount"') # Filter on bogo offer type
+    trans_count_bogo = trans_count_bogo.groupby('id_membership').count() # groupby id_membership and apply count
+    trans_count_bogo = trans_count_bogo.reset_index(level=[0]) # reset index
+    
+    trans_count_bogo.rename(columns = {'amount_x':'prep_comp_one_discount'}, inplace = True) # rename "amount_x" column to "prep_comp_one_discount" column
+    
+    trans_count_bogo = trans_count_bogo[["id_membership", "prep_comp_one_discount"]] # only keep the prep_tot_aver_spend_bogo and id_membership columns before merging 
+    profile_prep = pd.merge(trans_count_bogo, profile_prep, on="id_membership", how=merge_how) # Merge trans_count_dis and profile_prep and strore the result in profile_prep
+    profile_prep['prep_comp_one_discount'] = profile_prep['prep_comp_one_discount'].fillna(0) ## Set null/Nan prep_tot_aver_spend_bogo to zero 
+    profile_prep.loc[(profile_prep["prep_comp_one_discount"] > 0), 'prep_comp_one_discount'] = 1
+    
+    #### COMPLETED AT LEAST ONE BOGO OFFER ####
+    #### prep_comp_one_bogo ####
+    
+    #### Compute prep_comp_one_bogo ####
+    
+    trans_count_bogo = trans_offer.query('offer_type == "bogo"') # Filter on bogo offer type
+    trans_count_bogo = trans_count_bogo.groupby('id_membership').count() # groupby id_membership and apply count
+    trans_count_bogo = trans_count_bogo.reset_index(level=[0]) # reset index
+    
+    trans_count_bogo.rename(columns = {'amount_x':'prep_comp_one_bogo'}, inplace = True) # rename "amount_x" column to "prep_comp_one_bogo" column
+    
+    trans_count_bogo = trans_count_bogo[["id_membership", "prep_comp_one_bogo"]] # only keep the prep_tot_aver_spend_bogo and id_membership columns before merging 
+    profile_prep = pd.merge(trans_count_bogo, profile_prep, on="id_membership", how=merge_how) # Merge trans_count_dis and profile_prep and strore the result in profile_prep
+    profile_prep['prep_comp_one_bogo'] = profile_prep['prep_comp_one_bogo'].fillna(0) ## Set null/Nan prep_tot_aver_spend_bogo to zero 
+    profile_prep.loc[(profile_prep["prep_comp_one_bogo"] > 0), 'prep_comp_one_bogo'] = 1
     
     #### TOTAL AVERAGE REWARD ON COMPLETED OFFERS PER CUSTOMER ####
     #### prep_tot_aver_reward ####
