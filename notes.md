@@ -1,4 +1,11 @@
-# Goals for next week (21/03/2022) | Deadline April 1st
+# Goals for (24/03/2022) | Deadline April 1st
+
+* 1. Slide 1 to 6 --> Felix
+* 2. Slide 7 to 10 --> Mickael
+* 3. Slide 11 to end --> Gabriel
+* 4. Everyone --> polish up your slides
+
+# Goals for  week (21/03/2022) | Deadline April 1st
 
 * 1. Include new variables (i.e. difference prep_tot_aver_spend_bogo - prep_tot_aver_spend_exc_offers & difference prep_tot_aver_spend_discount - prep_tot_aver_spend_exc_offers) (@Felix & @Mickael)
 * 2. Interpret new results (@Felix & @Mickael) 
