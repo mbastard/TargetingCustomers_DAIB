@@ -95,6 +95,8 @@ These informative variables are derived while calling the preprocessing() fucnti
 * view_rate_after_rec : % of offers that have been viewed after receiving it = prep_nb_of_offer_view/prep_nb_of_offer_rec
 * comp_rate_after_view : % of offers that have been completed after viewing it = prep_nb_of_offer_comp/prep_nb_of_offer_view
 * comp_rate_after_rec : % of offers that have been completed after receiving it = prep_nb_of_offer_comp/prep_nb_of_offer_rec
+* prep_comp_one_discount : COMPLETED AT LEAST ONE DISCOUNT OFFER (Boolean: 0 (NO) / 1 (YES))
+* prep_comp_one_bogo : COMPLETED AT LEAST ONE GOGO OFFER (Boolean: 0 (NO) / 1 (YES))
 
 ## Important links
 
