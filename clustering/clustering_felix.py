@@ -34,3 +34,17 @@ profile = profile.drop(["year_joined", "gender", "became_member_on", "prep_tot_s
 #print(profile.isnull().sum())
 
 X_pca, pca = utpi.pipe_preMod(profile, var_explained=0.8)
+
+X_pca.shape
+
+utpl.screePlot(profile, var_explained=0.8)
+
+len(np.cumsum(pca.explained_variance_ratio_))
+
+kelbow_visualizer(KMeans(), X_pca, k=(1,10));
+
+model = KMeans(n_clusters=3, random_state=utm.getSeed()).fit(X_pca)
+kmeans_clusters = model.predict(X_pca)
+utpl.customersByClusters(profile, kmeans_clusters)
+
+utpl.barPlotGrid(profile, kmeans_clusters)

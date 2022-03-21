@@ -23,3 +23,4 @@ import utils_plots as utpl
 
 portfolio, profile, transcript = utpi.pipe_preProcessing(dropUnnecessaryCol = False, impute = True, how = 'impute')
 
+profile["delta_prep_tot_aver_spend_discount_exc_offers"].mean()
