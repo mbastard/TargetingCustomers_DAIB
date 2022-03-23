@@ -2,7 +2,7 @@
 
 * 1. Slide 1 to 6 --> Felix
 * 2. Slide 7 to 10 --> Mickael
-* 3. Slide 11 to end --> Gabriel
+* 3. Slide 12 to end --> Gabriel
 * 4. Everyone --> polish up your slides
 
 # Goals for  week (21/03/2022) | Deadline April 1st
